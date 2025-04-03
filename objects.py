@@ -202,7 +202,7 @@ class Match:
         rpr = "abbreviation"
         if self.state == "Nierozegrany":
             return f"{self.host[rpr]} vs {self.guest[rpr]}"
-        return f"{self.host[rpr]} {self.scores["final"]} {self.guest[rpr]}"
+        return f"{self.host[rpr]} {self.scores['final']} {self.guest[rpr]}"
 
     def __repr__(self):
         rpr = "abbreviation"
@@ -248,7 +248,7 @@ class Player:
         return sum([app.duration for app in self.appearances if app.played])
 
     def get_inline_apps(self):
-        return f"{self.apps}/{self.callings} apps | {' | '.join([f"{str(app):<20}" for app in self.appearances])}"
+        return f"{self.apps}/{self.callings} apps | {' | '.join([f'{str(app):<20}' for app in self.appearances])}"
 
     def __str__(self):
         return f"{self.firstname + ' ' + self.lastname:<25} {self.minutes:<4} min | {self.get_inline_apps()}"
