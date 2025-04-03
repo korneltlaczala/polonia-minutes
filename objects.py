@@ -226,25 +226,29 @@ class Player:
         self.isKeepeer = isKeeper
 
         self.teams = []
-        self.apperances = []
+        self.appearances = []
 
     def add_team(self, team):
         self.teams.append(team)
 
     def add_appearance(self, appearance):
-        self.apperances.append(appearance)
-        self.apperances = sorted(self.apperances, key=lambda app: app.match.dateTime)
+        self.appearances.append(appearance)
+        self.appearances = sorted(self.appearances, key=lambda app: app.match.dateTime)
 
     @property
     def apps(self):
-        return len([app for app in self.apperances if app.played])
+        return len([app for app in self.appearances if app.played])
+
+    @property
+    def callings(self):
+        return len(self.appearances)
 
     @property
     def minutes(self):
-        return sum([app.duration for app in self.apperances if app.played])
+        return sum([app.duration for app in self.appearances if app.played])
 
     def get_inline_apps(self):
-        return f"{self.apps} apps | {' | '.join([f"{str(app):<20}" for app in self.apperances])}"
+        return f"{self.apps}/{self.callings} apps | {' | '.join([f"{str(app):<20}" for app in self.appearances])}"
 
     def __str__(self):
         return f"{self.firstname + ' ' + self.lastname:<25} {self.minutes:<4} min | {self.get_inline_apps()}"
