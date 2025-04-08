@@ -5,33 +5,33 @@ class Club:
     def __init__(self, name, folder):
         self.name = name
         self.folder = folder
-        self.teams = []
-        self.load_teams()
+        self.leagues = []
+        self.load_leagues()
         self.load_players()
 
     def prep_stats(self):
-        for team in self.teams:
-            team.prep_stats()
+        for league in self.leagues:
+            league.prep_stats()
 
-    def read_teams(self):
-        with open(f"{self.folder}/teams.json", "r", encoding="utf-8") as f:
-            teams = json.load(f)
-        return teams
+    def read_leagues(self):
+        with open(f"{self.folder}/leagues.json", "r", encoding="utf-8") as f:
+            leagues = json.load(f)
+        return leagues
 
-    def load_teams(self):
-        self.teams = []
-        teams = self.read_teams()
-        for team in teams:
-            self.teams.append(Team(self, team["name"], team["folder"], team["url"]))
+    def load_leagues(self):
+        self.leagues = []
+        leagues = self.read_leagues()
+        for league in leagues:
+            self.leagues.append(League(self, league["name"], league["folder"], league["url"]))
 
     def load_players(self):
         self.players = []
-        for team in self.teams:
-            players = team.read_players()
+        for league in self.leagues:
+            players = league.read_players()
             for player in players:
-                self.try_add_player(player, team)
+                self.try_add_player(player, league)
 
-    def try_add_player(self, player, team):
+    def try_add_player(self, player, league):
         id = player["id"]
         firstname = player["firstname"]
         lastname = player["lastname"]
@@ -39,10 +39,10 @@ class Club:
 
         for p in self.players:
             if p.id == id:
-                p.add_team(team)
+                p.add_league(league)
                 return
         player = Player(id, firstname, lastname, isKeeper)
-        player.add_team(team)
+        player.add_league(league)
         self.players.append(player)
 
     def get_player(self, id):
@@ -54,7 +54,7 @@ class Club:
         for player in self.players:
             print(player)
 
-class Team:
+class League:
     def __init__(self, club, name, folder, url):
         self.club = club
         self.name = name
@@ -69,20 +69,20 @@ class Team:
             match.prep_stats()
 
     def read_players(self):
-        team_dir = os.path.join(self.club.folder, self.folder)
-        with open(os.path.join(team_dir, "players.json"), "r", encoding="utf-8") as f:
+        league_dir = os.path.join(self.club.folder, self.folder)
+        with open(os.path.join(league_dir, "players.json"), "r", encoding="utf-8") as f:
             players = json.load(f)
         return players
 
     def read_played_matches(self):
-        team_dir = os.path.join(self.club.folder, self.folder)
-        with open(os.path.join(team_dir, "played-matches.json"), "r", encoding="utf-8") as f:
+        league_dir = os.path.join(self.club.folder, self.folder)
+        with open(os.path.join(league_dir, "played-matches.json"), "r", encoding="utf-8") as f:
             played_matches = json.load(f)
         return played_matches
 
     def read_not_played_matches(self):
-        team_dir = os.path.join(self.club.folder, self.folder)
-        with open(os.path.join(team_dir, "not-played-matches.json"), "r", encoding="utf-8") as f:
+        league_dir = os.path.join(self.club.folder, self.folder)
+        with open(os.path.join(league_dir, "not-played-matches.json"), "r", encoding="utf-8") as f:
             not_played_matches = json.load(f)
         return not_played_matches
 
@@ -137,7 +137,7 @@ class Team:
         print("Players:")
         list = []
         for player in self.club.players:
-            if self in player.teams:
+            if self in player.leagues:
                 if not show_zeros and player.apps == 0:
                     continue
                 list.append(player)
@@ -149,13 +149,13 @@ class Team:
         return self.name
 
     def __repr__(self):
-        return f"Team(name={self.name}, folder={self.folder})"
+        return f"League(name={self.name}, folder={self.folder})"
 
 
 class Match:
-    def __init__(self, club, team, matchId, state, dateTime, canDateTimeChange, scores, host, guest, league, play):
+    def __init__(self, club, league, matchId, state, dateTime, canDateTimeChange, scores, host, guest, league_data, play):
         self.club = club
-        self.team = team
+        self.league = league
         self.matchId = matchId
         self.state = state
         self.dateTime = dateTime
@@ -163,13 +163,13 @@ class Match:
         self.scores = scores
         self.host = host
         self.guest = guest
-        self.league = league
+        self.league_data = league_data
         self.play = play
 
         self.events = None
 
     def load_events(self):
-        match_dir = os.path.join(self.club.folder, self.team.folder, self.get_id())
+        match_dir = os.path.join(self.club.folder, self.league.folder, self.get_id())
         try:
             with open(os.path.join(match_dir, "events.json"), "r", encoding="utf-8") as f:
                 events = json.load(f)
@@ -186,7 +186,7 @@ class Match:
 
         for player in players:
             p = self.club.get_player(player["id"])
-            appearance = Appearance(self.team,
+            appearance = Appearance(self.league,
                                     self,
                                     player["type"],
                                     player["number"],
@@ -225,11 +225,11 @@ class Player:
         self.lastname = lastname
         self.isKeepeer = isKeeper
 
-        self.teams = []
+        self.leagues = []
         self.appearances = []
 
-    def add_team(self, team):
-        self.teams.append(team)
+    def add_league(self, league):
+        self.leagues.append(league)
 
     def add_appearance(self, appearance):
         self.appearances.append(appearance)
@@ -256,8 +256,8 @@ class Player:
 
 class Appearance:
 
-    def __init__(self, team, match, app_type, number, isCaptain, isKeeper, isJunior, goals, cards, substitutions):
-        self.team = team
+    def __init__(self, league, match, app_type, number, isCaptain, isKeeper, isJunior, goals, cards, substitutions):
+        self.league = league
         self.match = match
         self.app_type = app_type
         self.number = number
@@ -294,11 +294,11 @@ class Appearance:
         return f"{self.match} ({self.duration} min)"
 
     def __repr__(self):
-        return f"Appearance({self.team}, {self.match}, {self.app_type}, {self.number}, {self.isCaptain}, {self.isKeeper}, {self.isJunior}, {self.goals}, {self.cards}, {self.substitutions})"
+        return f"Appearance({self.league}, {self.match}, {self.app_type}, {self.number}, {self.isCaptain}, {self.isKeeper}, {self.isJunior}, {self.goals}, {self.cards}, {self.substitutions})"
 
 
 if __name__ == "__main__":
     club = Club("Polonia Warszawa", "polonia")
     club.prep_stats()
-    team = club.teams[0]
-    team.show_players()
+    league = club.leagues[0]
+    league.show_players()
