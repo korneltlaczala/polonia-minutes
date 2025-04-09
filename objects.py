@@ -1,17 +1,33 @@
 import os
 import json
+import util
 
 class Club:
     def __init__(self, name, folder):
         self.name = name
         self.folder = folder
         self.leagues = []
+        self.load_teams()
         self.load_leagues()
-        self.load_players()
 
     def prep_stats(self):
+        self.load_players()
         for league in self.leagues:
             league.prep_stats()
+
+    def read_teams(self):
+        with open(f"{self.folder}/teams.json", "r", encoding="utf-8") as f:
+            teams = json.load(f)
+        return teams
+
+    def load_teams(self):
+        self.teams = []
+        teams = self.read_teams()
+        for team in teams:
+            self.teams.append(Team(self,
+                                   team["id"],
+                                   team["category"],
+                                   team["category_age"]))
 
     def read_leagues(self):
         with open(f"{self.folder}/leagues.json", "r", encoding="utf-8") as f:
@@ -22,7 +38,11 @@ class Club:
         self.leagues = []
         leagues = self.read_leagues()
         for league in leagues:
-            self.leagues.append(League(self, league["name"], league["folder"], league["url"]))
+            self.leagues.append(League(self,
+                                       league["name"],
+                                       league["folder"],
+                                       league["category"],
+                                       league["url"]))
 
     def load_players(self):
         self.players = []
@@ -54,12 +74,57 @@ class Club:
         for player in self.players:
             print(player)
 
+    def show_leagues(self):
+        for league in self.leagues:
+            print(league)
+
+    def download_matches(self):
+        for league in self.leagues:
+            league.download_matches()
+
+    def download_players(self):
+        for league in self.leagues:
+            league.download_players()
+
+    def download_match_data(self):
+        for league in self.leagues:
+            league.download_match_data()
+
+    def __str__(self):
+        output = ""
+        for team in self.teams:
+            output += team.__str__()
+            output += "\n"
+            for league in team.get_leagues():
+                output += f"\t{league}\n"
+
+        return output
+
+class Team:
+    def __init__(self, club, id, category, category_age):
+        self.club = club
+        self.id = id
+        self.category = category
+        self.category_age = category_age
+
+    def get_leagues(self):
+        leagues = []
+        for league in self.club.leagues:
+            if league.category == self.category:
+                leagues.append(league)
+        return leagues
+
+    def __str__(self):
+        return f"{self.category}, {self.category_age}"
+
 class League:
-    def __init__(self, club, name, folder, url):
+    def __init__(self, club, name, folder, category, url):
         self.club = club
         self.name = name
         self.folder = folder
+        self.category = category
         self.url = url
+
         self.not_played_matches = []
         self.played_matches = []
 
@@ -69,20 +134,20 @@ class League:
             match.prep_stats()
 
     def read_players(self):
-        league_dir = os.path.join(self.club.folder, self.folder)
-        with open(os.path.join(league_dir, "players.json"), "r", encoding="utf-8") as f:
+        dir = os.path.join(self.club.folder, self.folder)
+        with open(os.path.join(dir, "players.json"), "r", encoding="utf-8") as f:
             players = json.load(f)
         return players
 
     def read_played_matches(self):
-        league_dir = os.path.join(self.club.folder, self.folder)
-        with open(os.path.join(league_dir, "played-matches.json"), "r", encoding="utf-8") as f:
+        dir = os.path.join(self.club.folder, self.folder)
+        with open(os.path.join(dir, "played-matches.json"), "r", encoding="utf-8") as f:
             played_matches = json.load(f)
         return played_matches
 
     def read_not_played_matches(self):
-        league_dir = os.path.join(self.club.folder, self.folder)
-        with open(os.path.join(league_dir, "not-played-matches.json"), "r", encoding="utf-8") as f:
+        dir = os.path.join(self.club.folder, self.folder)
+        with open(os.path.join(dir, "not-played-matches.json"), "r", encoding="utf-8") as f:
             not_played_matches = json.load(f)
         return not_played_matches
 
@@ -145,6 +210,21 @@ class League:
             print(player)
         print("="*20)
 
+    def download_matches(self):
+        dir = os.path.join(self.club.folder, self.folder)
+        util.prep_dir(dir)
+        util.catch_and_save_files(self.url, ["played-matches", "not-played-matches"], dir)
+
+    def download_players(self):
+        dir = os.path.join(self.club.folder, self.folder)
+        util.prep_dir(dir)
+        util.catch_and_save_files(self.url, ["players"], dir)
+
+    def download_match_data(self):
+        self.load_matches()
+        for match in self.played_matches:
+            match.download_events()
+
     def __str__(self):
         return self.name
 
@@ -169,7 +249,7 @@ class Match:
         self.events = None
 
     def load_events(self):
-        match_dir = os.path.join(self.club.folder, self.league.folder, self.get_id())
+        match_dir = os.path.join(self.club.folder, self.league.folder, self.id)
         try:
             with open(os.path.join(match_dir, "events.json"), "r", encoding="utf-8") as f:
                 events = json.load(f)
@@ -198,6 +278,21 @@ class Match:
                                     player["substitutions"])
             p.add_appearance(appearance)
 
+    def download_events(self):
+        print(f"Downloading events for {self}")
+        match_dir = os.path.join(self.club.folder, self.league.folder, self.id)
+        util.prep_dir(match_dir)
+        util.catch_and_save_files(self.url, ["events"], match_dir)
+
+    @property
+    def id(self):
+        abbr = "abbreviation"
+        return self.host[abbr] + self.guest[abbr]
+
+    @property
+    def url(self):
+        return f"https://laczynaspilka.pl/rozgrywki/mecz/{self.matchId}"
+
     def __str__(self):
         rpr = "abbreviation"
         if self.state == "Nierozegrany":
@@ -207,15 +302,6 @@ class Match:
     def __repr__(self):
         rpr = "abbreviation"
         return f"Match(Host={self.host[rpr]}, Guest={self.guest[rpr]}, State={self.state})"
-
-    def get_id(self):
-        abbr = "abbreviation"
-        return self.host[abbr] + self.guest[abbr]
-
-    @property
-    def url(self):
-        return f"https://laczynaspilka.pl/rozgrywki/mecz/{self.matchId}"
-
 
 class Player:
 
@@ -299,6 +385,10 @@ class Appearance:
 
 if __name__ == "__main__":
     club = Club("Polonia Warszawa", "polonia")
+    # club.download_matches()
+    # club.download_players()
+    # club.download_match_data()
+
     club.prep_stats()
     league = club.leagues[0]
     league.show_players()
