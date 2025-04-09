@@ -220,10 +220,12 @@ class League:
         util.prep_dir(dir)
         util.catch_and_save_files(self.url, ["players"], dir)
 
-    def download_match_data(self):
+    def download_match_data(self, force=False):
         self.load_matches()
         for match in self.played_matches:
-            match.download_events()
+            if not match.events_downloaded() or force:
+                print(match)
+                match.download_events()
 
     def __str__(self):
         return self.name
@@ -247,6 +249,11 @@ class Match:
         self.play = play
 
         self.events = None
+
+    def events_downloaded(self):
+        match_dir = os.path.join(self.club.folder, self.league.folder, self.id)
+        # print(match_dir)
+        return os.path.exists(os.path.join(match_dir, "events.json"))
 
     def load_events(self):
         match_dir = os.path.join(self.club.folder, self.league.folder, self.id)
@@ -387,8 +394,8 @@ if __name__ == "__main__":
     club = Club("Polonia Warszawa", "polonia")
     # club.download_matches()
     # club.download_players()
-    # club.download_match_data()
+    club.download_match_data()
 
-    club.prep_stats()
-    league = club.leagues[0]
-    league.show_players()
+    # club.prep_stats()
+    # league = club.leagues[0]
+    # league.show_players()
