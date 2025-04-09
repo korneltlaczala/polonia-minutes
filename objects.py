@@ -228,7 +228,8 @@ class League:
                 match.download_events()
 
     def __str__(self):
-        return self.name
+        # return self.name
+        return f"{self.name:<30} {self.folder}"
 
     def __repr__(self):
         return f"League(name={self.name}, folder={self.folder})"
@@ -252,7 +253,6 @@ class Match:
 
     def events_downloaded(self):
         match_dir = os.path.join(self.club.folder, self.league.folder, self.id)
-        # print(match_dir)
         return os.path.exists(os.path.join(match_dir, "events.json"))
 
     def load_events(self):
