@@ -287,6 +287,7 @@ class Match:
 
     def download_events(self):
         print(f"Downloading events for {self}")
+        print(f"from {self.url}")
         match_dir = os.path.join(self.club.folder, self.league.folder, self.id)
         util.prep_dir(match_dir)
         util.catch_and_save_files(self.url, ["events"], match_dir)
@@ -394,8 +395,8 @@ if __name__ == "__main__":
     club = Club("Polonia Warszawa", "polonia")
     # club.download_matches()
     # club.download_players()
-    club.download_match_data()
+    # club.download_match_data()
 
-    # club.prep_stats()
-    # league = club.leagues[0]
-    # league.show_players()
+    club.prep_stats()
+    league = club.leagues[0]
+    league.show_players()
