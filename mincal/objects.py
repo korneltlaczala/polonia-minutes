@@ -73,7 +73,7 @@ class Club:
 
     def show_players(self):
         for player in self.players:
-            print(player)
+            player.show_minutes()
 
     def show_teams(self):
         for team in self.teams:
@@ -207,13 +207,14 @@ class League:
         print("Players:")
         list = []
         for player in self.club.players:
-            if self in player.leagues:
-                if not show_zeros and player.apps == 0:
-                    continue
-                list.append(player)
+            if self not in player.leagues:
+                continue
+            if not show_zeros and player.apps == 0:
+                continue
+            list.append(player)
 
         for player in sorted(list, key=lambda player: player.minutes, reverse=True):
-            print(player)
+            player.show_minutes()
 
     def download_matches(self):
         dir = os.path.join(self.club.folder, self.folder)
@@ -357,8 +358,11 @@ class Player:
     def get_inline_apps(self):
         return f"{self.apps}/{self.callings} apps | {' | '.join([f'{str(app):<20}' for app in self.appearances])}"
 
+    def show_minutes(self):
+        print(f"{self.firstname + ' ' + self.lastname:<25} {self.minutes:<4} min | {self.get_inline_apps()}")
+
     def __str__(self):
-        return f"{self.firstname + ' ' + self.lastname:<25} {self.minutes:<4} min | {self.get_inline_apps()}"
+        return f"{self.firstname + ' ' + self.lastname:<25}"
 
 
 class Appearance:
