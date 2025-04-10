@@ -5,7 +5,7 @@ import util
 class Club:
     def __init__(self, name, folder):
         self.name = name
-        self.folder = folder
+        self.folder = "data/" + folder
         self.leagues = []
         self.load_teams()
         self.load_leagues()
@@ -73,6 +73,10 @@ class Club:
     def show_players(self):
         for player in self.players:
             print(player)
+
+    def show_teams(self):
+        for team in self.teams:
+            print(team)
 
     def show_leagues(self):
         for league in self.leagues:
@@ -393,6 +397,7 @@ class Appearance:
 
 if __name__ == "__main__":
     club = Club("Polonia Warszawa", "polonia")
+    # print(club)
     # club.download_matches()
     # club.download_players()
     # club.download_match_data()
