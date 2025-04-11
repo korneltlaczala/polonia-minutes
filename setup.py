@@ -7,6 +7,7 @@ setup(
     install_requires=[
         "selenium",
         "selenium-wire",
-        "blinker==1.7.0"],
+        "blinker==1.7.0",
+        "setuptools"],
     python_requires=">=3.6",
 )
