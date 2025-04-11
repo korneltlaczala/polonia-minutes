@@ -17,7 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+from . import views
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('minutes.urls'))
+    path('', views.choose_team, name='choose_team')
 ]
