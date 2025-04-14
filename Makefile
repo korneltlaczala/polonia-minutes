@@ -23,3 +23,9 @@ uninstall:
 install:
 	pip install -r requirements.txt
 	$(RMDIR) mincal.egg-info
+
+download_matches:
+	python scripts/download_matches.py
+
+download_match_data:
+	python scripts/download_match_data.py
