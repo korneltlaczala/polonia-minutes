@@ -3,7 +3,33 @@ button.active {
     background: #ddd;
 }
 
-.player {
-    display: flex;
+.player-table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
+.player-table td,
+.player-table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.player-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.player-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #bf110b;
+    color: white;
+}
+
+.player-table tr {
+    transition: all 0.1s ease-in-out;
+}
+
+.player-table tr:hover {
+    background-color: #ddd;
+}

@@ -38,7 +38,7 @@
                     }
 
                     const table = document.createElement('table');
-                    table.classList.add('players-table');
+                    table.classList.add('player-table');
                     const headerRow = document.createElement('tr');
                     headerRow.innerHTML = `
                         <th>Player</th>
@@ -49,20 +49,40 @@
                     `;
                     table.appendChild(headerRow);
 
+                    data.players.sort((a, b) => b.callings - a.callings);
                     data.players.sort((a, b) => b.minutes - a.minutes);
+
                     data.players.forEach(player => {
                         const row = document.createElement('tr');
+                        const appContainer = document.createElement('div');
+                        player.appearances.forEach(app => {
+                            const appDiv = document.createElement('div');
+                            appDiv.classList.add('appearance');
+                            appDiv.innerHTML = `
+                                <span class="match">${app.match}</span>
+                                <span class="minutes">${app.duration}</span>
+                            `;
+                            appContainer.appendChild(appDiv);
+                        })
                         row.innerHTML = `
                             <td>${player.firstname} ${player.lastname}</td>
                             <td>${player.minutes}</td>
                             <td>${player.apps}</td>
                             <td>${player.callings}</td>
+                            <td></td>
                         `;
+                        const cells = row.querySelectorAll('td');
+                        cells[4].appendChild(appContainer);
+
+                        row.classList.add('player-row');
                         table.appendChild(row);
                     });
                     playerContainer.appendChild(table);
                 });
         }
+
+        const initialButton = document.querySelector('.team-button-container button:last-child');
+        loadTeamPlayers(3, initialButton);
     </script>
     
 </body>
