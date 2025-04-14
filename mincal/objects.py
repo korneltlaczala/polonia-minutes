@@ -66,6 +66,11 @@ class Club:
         player.add_league(league)
         self.players.append(player)
 
+    def get_team(self, id):
+        for team in self.teams:
+            if team.id == id:
+                return team
+
     def get_player(self, id):
         for player in self.players:
             if player.id == id:
@@ -94,6 +99,16 @@ class Club:
     def download_match_data(self):
         for league in self.leagues:
             league.download_match_data()
+
+    def get_players_for_team(self, team_id):
+        team_id = int(team_id)
+        team = self.get_team(team_id)
+        players = []
+        for player in self.players:
+            if player.belongs_to_team(team):
+                players.append(player)
+
+        return players
 
     def __str__(self):
         output = ""
@@ -233,6 +248,12 @@ class League:
                 print(match)
                 match.download_events()
 
+    @property
+    def team(self):
+        for team in self.club.teams:
+            if team.category == self.category:
+                return team
+
     def __str__(self):
         return self.name
         # return f"{self.name:<30} {self.folder}"
@@ -360,6 +381,12 @@ class Player:
 
     def show_minutes(self):
         print(f"{self.firstname + ' ' + self.lastname:<25} {self.minutes:<4} min | {self.get_inline_apps()}")
+
+    def belongs_to_league(self, league):
+        return league in self.leagues
+
+    def belongs_to_team(self, team):
+        return team in [league.team for league in self.leagues]
 
     def __str__(self):
         return f"{self.firstname + ' ' + self.lastname:<25}"

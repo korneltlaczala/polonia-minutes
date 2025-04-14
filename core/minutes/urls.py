@@ -20,6 +20,8 @@ from django.urls import include, path
 from . import views
 
 urlpatterns = [
-    path('choose_team', views.choose_team, name='choose_team'),
-    path('', views.player_list, name='player_list')
+    path('choose-team', views.choose_team, name='choose_team'),
+    path('', views.player_list, name='player_list'),
+
+    path('api/team-players/', views.team_players_api, name='team_players_api'),
 ]
