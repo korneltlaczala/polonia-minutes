@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player list</title>
+</head>
+
+{% load static %}
+
+<body>
+    <div class="team-choice">
+        {% for team in club.teams %}
+            <button type="button">{{ team }}</button>
+        {% endfor %}
+    </div>
+    <ul>
+        {% for player in club.players %}
+            <li>{{ player }}</li>
+            <!-- {% for league in team.get_leagues %}
+                <li>{{ league }}</li>
+            {% endfor %} -->
+        {% endfor %}
+    </ul>
+</body>
+</html>
