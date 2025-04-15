@@ -15,5 +15,6 @@ def catch_and_save_files(url, files, dir):
     sniffer.destroy()
 
 def dump_json(dir, file, json_data):
+    if file.endswith(".json"): file = file[:-5]
     with open(f"{dir}/{file}.json", 'w', encoding='utf-8') as f:
         json.dump(json_data, f, indent=4, ensure_ascii=False)

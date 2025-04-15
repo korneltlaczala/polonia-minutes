@@ -100,6 +100,10 @@ class Club:
         for league in self.leagues:
             league.download_match_data()
 
+    def repair_matches(self):
+        for league in self.leagues:
+            league.repair_matches()
+
     def get_players_for_team(self, team_id):
         team_id = int(team_id)
         team = self.get_team(team_id)
@@ -149,7 +153,6 @@ class League:
         self.played_matches = []
 
     def prep_stats(self):
-        print(self)
         self.load_played_matches()
         for match in self.played_matches:
             match.prep_stats()
@@ -228,7 +231,7 @@ class League:
         dir = os.path.join(self.club.folder, self.folder)
         util.prep_dir(dir)
         util.catch_and_save_files(self.url, ["played-matches", "not-played-matches"], dir)
-        # self.scan_file(["played-matches", "not-played-matches"])
+        self.repair_matches()
 
     def download_players(self, force=False):
         if self.players_downloaded() and not force:
@@ -245,6 +248,30 @@ class League:
             if not match.events_downloaded() or force:
                 print(match)
                 match.download_events()
+
+    def repair_matches(self):
+        files_to_repair = ["played-matches.json", "not-played-matches.json"]
+        for file in files_to_repair:
+            self.repair_matches_file(file)
+
+    def repair_matches_file(self, file):
+        dir = os.path.join(self.club.folder, self.folder)
+        matches = self.read_matches(file)
+        for match in matches:
+            if "abbreviation" not in match["host"]:
+                match["host"]["abbreviation"] = match["host"]["name"][:3].upper()
+                print(f"adding abbreviation to {match["host"]["name"]}: {match['host']['abbreviation']}")
+            if "abbreviation" not in match["guest"]:
+                match["guest"]["abbreviation"] = match["guest"]["name"][:3].upper()
+                print(f"adding abbreviation to {match["guest"]["name"]}: {match['guest']['abbreviation']}")
+
+            if match["host"]["abbreviation"] == match["guest"]["abbreviation"]:
+                if "Polonia" in match["host"]["name"] and "Warszawa" in match["host"]["name"]:
+                    match["guest"]["abbreviation"] = f"_{match['guest']['abbreviation'][:2]}"
+                if "Polonia" in match["guest"]["name"] and "Warszawa" in match["guest"]["name"]:
+                    match["host"]["abbreviation"] = f"_{match['host']['abbreviation'][:2]}"
+
+        util.dump_json(dir, file, matches)
 
     def players_downloaded(self):
         dir = os.path.join(self.club.folder, self.folder)
@@ -299,11 +326,6 @@ class Match:
         return os.path.exists(os.path.join(match_dir, "events.json"))
 
     def prep_stats(self):
-        try:
-            print(self)
-        except:
-            print(f"host: {self.host}")
-            print(f"guest: {self.guest}")
         if not self.events_downloaded():
             return
 
