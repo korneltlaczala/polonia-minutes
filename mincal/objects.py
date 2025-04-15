@@ -236,7 +236,11 @@ class League:
         util.prep_dir(dir)
         util.catch_and_save_files(self.url, ["played-matches", "not-played-matches"], dir)
 
-    def download_players(self):
+    def download_players(self, force=False):
+        if self.players_downloaded() and not force:
+            print(f"Players already downloaded for {self}")
+            return
+        print(f"Downloading players for {self}...")
         dir = os.path.join(self.club.folder, self.folder)
         util.prep_dir(dir)
         util.catch_and_save_files(self.url, ["players"], dir)
@@ -247,6 +251,10 @@ class League:
             if not match.events_downloaded() or force:
                 print(match)
                 match.download_events()
+
+    def players_downloaded(self):
+        dir = os.path.join(self.club.folder, self.folder)
+        return os.path.exists(os.path.join(dir, "players.json"))
 
     @property
     def team(self):
