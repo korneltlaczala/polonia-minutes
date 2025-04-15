@@ -27,5 +27,8 @@ install:
 download_matches:
 	python scripts/download_matches.py
 
+download_players:
+	python scripts/download_players.py
+
 download_match_data:
 	python scripts/download_match_data.py
