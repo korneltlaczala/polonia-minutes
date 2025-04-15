@@ -149,6 +149,7 @@ class League:
         self.played_matches = []
 
     def prep_stats(self):
+        print(self)
         self.load_played_matches()
         for match in self.played_matches:
             match.prep_stats()
@@ -160,16 +161,16 @@ class League:
         return players
 
     def read_played_matches(self):
-        dir = os.path.join(self.club.folder, self.folder)
-        with open(os.path.join(dir, "played-matches.json"), "r", encoding="utf-8") as f:
-            played_matches = json.load(f)
-        return played_matches
+        return self.read_matches("played-matches.json")
 
     def read_not_played_matches(self):
+        return self.read_matches("not-played-matches.json")
+
+    def read_matches(self, filename):
         dir = os.path.join(self.club.folder, self.folder)
-        with open(os.path.join(dir, "not-played-matches.json"), "r", encoding="utf-8") as f:
-            not_played_matches = json.load(f)
-        return not_played_matches
+        with open(os.path.join(dir, filename), "r", encoding="utf-8") as f:
+            matches = json.load(f)
+        return matches
 
     def load_matches(self):
         self.load_played_matches()
@@ -178,34 +179,26 @@ class League:
     def load_played_matches(self):
         played_matches = self.read_played_matches()
         self.played_matches = []
-        for match in played_matches:
-            self.played_matches.append(Match(self.club,
-                                             self,
-                                             match["matchId"],
-                                             match["state"],
-                                             match["dateTime"],
-                                             match["canDateTimeChange"],
-                                             match["scores"],
-                                             match["host"],
-                                             match["guest"],
-                                             match["league"],
-                                             match["play"]))
+        self.matches_to_objects(played_matches, self.played_matches)
     
     def load_not_played_matches(self):
         not_played_matches = self.read_not_played_matches()
         self.not_played_matches = []
-        for match in not_played_matches:
-            self.not_played_matches.append(Match(self.club,
-                                                 self,
-                                                 match["matchId"],
-                                                 match["state"],
-                                                 match["dateTime"],
-                                                 match["canDateTimeChange"],
-                                                 match["scores"],
-                                                 match["host"],
-                                                 match["guest"],
-                                                 match["league"],
-                                                 match["play"]))
+        self.matches_to_objects(not_played_matches, self.not_played_matches)
+
+    def matches_to_objects(self, match_list, match_object_list):
+        for match in match_list:
+            match_object_list.append(Match(self.club,
+                                          self,
+                                          match["matchId"],
+                                          match["state"],
+                                          match["dateTime"],
+                                          match["canDateTimeChange"],
+                                          match["scores"],
+                                          match["host"],
+                                          match["guest"],
+                                          match["league"],
+                                          match["play"]))
 
     def show_matches(self):
         print(f"Played matches:")
@@ -235,6 +228,7 @@ class League:
         dir = os.path.join(self.club.folder, self.folder)
         util.prep_dir(dir)
         util.catch_and_save_files(self.url, ["played-matches", "not-played-matches"], dir)
+        # self.scan_file(["played-matches", "not-played-matches"])
 
     def download_players(self, force=False):
         if self.players_downloaded() and not force:
@@ -297,15 +291,22 @@ class Match:
 
     def load_events(self):
         match_dir = os.path.join(self.club.folder, self.league.folder, self.id)
-        try:
-            with open(os.path.join(match_dir, "events.json"), "r", encoding="utf-8") as f:
-                events = json.load(f)
-        except FileNotFoundError:
-            events = []
-        self.events = events
+        with open(os.path.join(match_dir, "events.json"), "r", encoding="utf-8") as f:
+            self.events = json.load(f)
+
+    def events_downloaded(self):
+        match_dir = os.path.join(self.club.folder, self.league.folder, self.id)
+        return os.path.exists(os.path.join(match_dir, "events.json"))
 
     def prep_stats(self):
-        # print(self)
+        try:
+            print(self)
+        except:
+            print(f"host: {self.host}")
+            print(f"guest: {self.guest}")
+        if not self.events_downloaded():
+            return
+
         self.load_events()
         if self.host["abbreviation"] == "POL":
             players = self.events["host"]["squad"]
