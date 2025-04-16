@@ -1,3 +1,8 @@
+body {
+    background-color: rgb(19, 19, 19);
+    padding: 1rem;
+}
+
 button.active {
     font-weight: bold;
     background: #ddd;
@@ -16,6 +21,10 @@ button.active {
 
 .player-table tr:nth-child(even) {
     background-color: #f2f2f2;
+}
+
+.player-table tr:nth-child(odd) {
+    background-color: white;
 }
 
 .player-table th {

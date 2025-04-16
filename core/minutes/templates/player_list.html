@@ -55,7 +55,7 @@
                     data.players.forEach(player => {
                         const row = document.createElement('tr');
                         const appContainer = document.createElement('div');
-                        player.appearances.forEach(app => {
+                        player.appearances.slice(-1).forEach(app => {
                             const appDiv = document.createElement('div');
                             appDiv.classList.add('appearance');
                             appDiv.innerHTML = `
