@@ -337,7 +337,9 @@ class Match:
 
         for player in players:
             p = self.club.get_player(player["id"])
-            # print("\t", f"{p.firstname + ' ' + p.lastname:<24}", end="")
+            if p is None:
+                self.club.try_add_player(player, self.league)
+                p = self.club.get_player(player["id"])
             appearance = Appearance(self.league,
                                     self,
                                     player["type"],
@@ -348,8 +350,11 @@ class Match:
                                     player["goals"],
                                     player["cards"],
                                     player["substitutions"])
-            # print(f"{appearance.duration} min")
-            p.add_appearance(appearance)
+            try:
+                p.add_appearance(appearance)
+            except:
+                print(f"Error adding appearance to {p}")
+                print(player)
 
     def download_events(self):
         print(f"Downloading events for {self}")
@@ -445,6 +450,10 @@ class Appearance:
         self.minute_out = 90
 
         for substitution in self.substitutions:
+            minute_data = substitution["minute"].split("'")
+            minute = int(minute_data[0][:-1])
+             
+            print(minute)
             if substitution["type"].lower() == "in":
                 self.minute_in = int(substitution["minute"][:-1])
             elif substitution["type"].lower() == "out":
