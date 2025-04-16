@@ -260,10 +260,10 @@ class League:
         for match in matches:
             if "abbreviation" not in match["host"]:
                 match["host"]["abbreviation"] = match["host"]["name"][:3].upper()
-                print(f"adding abbreviation to {match["host"]["name"]}: {match['host']['abbreviation']}")
+                print(f"adding abbreviation to {match['host']['name']}: {match['host']['abbreviation']}")
             if "abbreviation" not in match["guest"]:
                 match["guest"]["abbreviation"] = match["guest"]["name"][:3].upper()
-                print(f"adding abbreviation to {match["guest"]["name"]}: {match['guest']['abbreviation']}")
+                print(f"adding abbreviation to {match['guest']['name']}: {match['guest']['abbreviation']}")
 
             if match["host"]["abbreviation"] == match["guest"]["abbreviation"]:
                 if "Polonia" in match["host"]["name"] and "Warszawa" in match["host"]["name"]:
@@ -451,13 +451,16 @@ class Appearance:
 
         for substitution in self.substitutions:
             minute_data = substitution["minute"].split("'")
-            minute = int(minute_data[0][:-1])
+            minute = int(minute_data[0])
+            if len(minute_data) == 3:
+                added = int(minute_data[1][2:])
+            else:
+                added = 0
              
-            print(minute)
             if substitution["type"].lower() == "in":
-                self.minute_in = int(substitution["minute"][:-1])
+                self.minute_in = minute
             elif substitution["type"].lower() == "out":
-                self.minute_out = int(substitution["minute"][:-1])-1
+                self.minute_out = minute-1
 
         if self.app_type == "Substitute" and len(self.substitutions) == 0:
             self.played = False
