@@ -13,9 +13,11 @@ def choose_team(request):
     context = {"club": club}
     return render(request, 'choose_team.html', context)
 
-def player_list(request):
-    context = {"club": club}
-    return render(request, 'player_list.html', context)
+def team(request, team_id):
+    team = club.get_team(team_id)
+    context = {"club": club,
+               "team": team}
+    return render(request, 'team.html', context)
 
 @api_view(['GET'])
 def team_players_api(request):

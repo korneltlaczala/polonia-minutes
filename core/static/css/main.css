@@ -1,6 +1,26 @@
+@import url('table.css');
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/static/fonts/Montserrat-VariableFont_wght.ttf') format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Montserrat, sans-serif;
+}
+
+:root {
+    font-size: 16px;
+}
+
 body {
-    background-color: rgb(19, 19, 19);
-    padding: 1rem;
+    background-color: black;
 }
 
 button.active {
@@ -8,7 +28,80 @@ button.active {
     background: #ddd;
 }
 
-.player-table {
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0;
+    gap: 1rem;
+}
+
+.container {
+    width: 90%;
+}
+
+.card {
+    background-color: rgb(29, 29, 29);
+    border-radius: 1rem;
+    color: white;
+    padding: 1rem;
+}
+
+.nav-link {
+    margin-bottom: 1rem;
+}
+.nav-link a {
+    text-decoration: none;
+    color: #aaa;
+    transition: all 0.1s ease-in-out;
+}
+
+.nav-link a:hover {
+    color: #c90000;
+}
+
+a button {
+    transition: all 0.1s ease-in-out;
+}
+
+a:hover button {
+    color: #c90000;
+}
+
+.state-button {
+    padding: 0.3rem 0.6rem;
+    border-radius: 0.5rem;
+    background-color: transparent;
+    border: 1px solid #aaa;
+    color: #aaa;
+    transition: all 0.1s ease-in-out;
+    border-width: 2px;
+}
+
+.state-button:hover {
+    /* color: #c90000;
+    border-color: #c90000; */
+    cursor: pointer;
+}
+
+.state-button-active {
+    background-color: #c90000;
+    color: white;
+    border-color: white;
+}
+
+.state-button-active:hover {
+    color: white;
+    border-color: white;
+}
+
+@media (max-width: 600px) {
+    .container {
+        width: 100%;
+    }
+}
+
+/* .player-table {
     width: 100%;
     border-collapse: collapse;
 }
@@ -41,4 +134,4 @@ button.active {
 
 .player-table tr:hover {
     background-color: #ddd;
-}
+} */

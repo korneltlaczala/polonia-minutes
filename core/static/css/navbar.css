@@ -1,0 +1,39 @@
+nav {
+    background-color: #1a1a1a;
+    color: white;
+    padding: 1rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+nav .team-logo {
+    height: 4rem;
+}
+
+nav .title {
+    display: flex;
+    align-items: flex-end;
+    gap: 1rem;
+}
+
+nav h1 {
+    font-weight: 700;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+
+}
+
+@media (max-width: 600px) {
+    nav .team-logo {
+        height: 3rem;
+    }
+    
+    nav .title {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

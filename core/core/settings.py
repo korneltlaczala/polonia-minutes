@@ -29,7 +29,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'minuty.korneltlaczala.com',
     'localhost',
-    '127.0.0.1']
+    '127.0.0.1',
+    '192.168.0.10']
 
 
 # Application definition

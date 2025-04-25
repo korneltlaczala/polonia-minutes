@@ -1,23 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-</head>
-
+{% extends 'base.html' %}
 {% load static %}
 
+{% block content %}
 <body>
-    <h1>Home</h1>
-    <h3>Choose team</h3>
-    <ul>
-        {% for team in club.teams %}
-            <li>{{ team }}</li>
-            {% for league in team.get_leagues %}
-                <li>{{ league }}</li>
+    <div class="container">
+        <table class="team-table">
+            <th>Roczniki</th>
+            {% for team in club.teams %}
+                <tr>
+                    <td><a href="{% url 'team' team.id %}"><button>{{ team.category_age }}</button></a></td>
+                </tr>
             {% endfor %}
-        {% endfor %}
-    </ul>
+        </table>
+    </div>
 </body>
 </html>
+{% endblock content %}

@@ -1,4 +1,5 @@
 import copy
+import datetime
 import os
 import json
 from . import util
@@ -17,6 +18,7 @@ class Club:
             league.prep_stats()
 
     def read_teams(self):
+        print(f"{self.folder}/teams.json")
         with open(f"{self.folder}/teams.json", "r", encoding="utf-8") as f:
             teams = json.load(f)
         return teams
@@ -119,7 +121,7 @@ class Club:
         for team in self.teams:
             output += team.__str__()
             output += "\n"
-            for league in team.get_leagues():
+            for league in team.leagues:
                 output += f"\t{league}\n"
 
         return output
@@ -131,12 +133,41 @@ class Team:
         self.category = category
         self.category_age = category_age
 
-    def get_leagues(self):
+    @property
+    def leagues(self):
         leagues = []
         for league in self.club.leagues:
             if league.category == self.category:
                 leagues.append(league)
         return leagues
+
+    @property
+    def players(self):
+        players = []
+        for player in self.club.players:
+            if player.belongs_to_team(self):
+                players.append(player)
+        return players
+
+    @property
+    def active_leagues(self):
+        leagues = []
+        for player in self.players:
+            for league in player.leagues:
+                if league.age < self.age:
+                    continue
+                if league in leagues:
+                    continue
+                leagues.append(league)
+        return leagues
+
+    @property
+    def age(self):
+        return int(self.category_age[2:])
+
+    @property
+    def birthyear(self):
+        return datetime.date.today().year - self.age
 
     def __str__(self):
         return f"{self.category}, {self.category_age}"
@@ -283,6 +314,14 @@ class League:
             if team.category == self.category:
                 return team
 
+    @property
+    def age(self):
+        return self.team.age
+
+    @property
+    def id(self):
+        return self.folder
+
     def __str__(self):
         return self.name
         # return f"{self.name:<30} {self.folder}"
@@ -411,6 +450,17 @@ class Player:
     @property
     def minutes(self):
         return sum([app.duration for app in self.appearances if app.played])
+
+    @property
+    def active_leagues(self):
+        leagues = []
+        for app in self.appearances:
+            if not app.played:
+                continue
+            if app.league in leagues:
+                continue
+            leagues.append(app.league)
+        return leagues
 
     def get_inline_apps(self):
         return f"{self.apps}/{self.callings} apps | {' | '.join([f'{str(app):<20}' for app in self.appearances])}"
