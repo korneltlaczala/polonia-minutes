@@ -12,13 +12,13 @@ class Club:
         self.load_teams()
         self.load_leagues()
 
-    def prep_stats(self):
+    def prep_stats(self, active_leagues=None):
         self.load_players()
         for league in self.leagues:
-            league.prep_stats()
+            if active_leagues is None or len(active_leagues) == 0 or league.id in active_leagues:
+                league.prep_stats()
 
     def read_teams(self):
-        print(f"{self.folder}/teams.json")
         with open(f"{self.folder}/teams.json", "r", encoding="utf-8") as f:
             teams = json.load(f)
         return teams
@@ -106,11 +106,15 @@ class Club:
         for league in self.leagues:
             league.repair_matches()
 
-    def get_players_for_team(self, team_id):
+    def get_players_for_team(self, team_id, active_leagues=None):
+        self.folder = self.folder[(self.folder.rfind("/") + 1):]
+        tempClub = Club(self.name, self.folder)
+        tempClub.prep_stats(active_leagues=active_leagues)
         team_id = int(team_id)
-        team = self.get_team(team_id)
+        team = tempClub.get_team(team_id)
+        print(team)
         players = []
-        for player in self.players:
+        for player in tempClub.players:
             if player.belongs_to_team(team):
                 players.append(player)
 

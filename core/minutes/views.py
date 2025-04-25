@@ -22,9 +22,10 @@ def team(request, team_id):
 @api_view(['GET'])
 def team_players_api(request):
     team_id = request.GET.get('team_id')
+    active_leagues = request.GET.get('active_leagues')
     if not team_id:
         return Response({"error": "No team provided"}, status=400)
 
-    players = club.get_players_for_team(team_id)
+    players = club.get_players_for_team(team_id, active_leagues)
     serializer = PlayerSerializer(players, many=True)
     return Response({"players": serializer.data})

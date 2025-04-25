@@ -27,11 +27,6 @@
         </div>
     </div>
 
-    <div class="team-button-container container">
-        {% for team in club.teams %}
-            <button class="choice_button" onclick="loadTeamPlayers('{{ team.id }}', this)">{{ team }}</button>
-        {% endfor %}
-    </div>
     <div class="player-container container">
 
     </div>
@@ -39,17 +34,20 @@
     <script>
 
         activeLeagues = [];
+        teamId = "{{ team.id }}";
 
         function selectAllLeagues(buttonEl) {
             if (buttonEl.classList.contains('state-button-active')) {
                 document.querySelectorAll('.league-choice-container .state-button:not(.group-leader)').forEach(btn => {
                     btn.click();
                 });
+                updateUI();
                 return;
             }
             document.querySelectorAll('.league-choice-container .state-button').forEach(btn => btn.classList.remove('state-button-active'));
             buttonEl.classList.add('state-button-active')
             activeLeagues = [];
+            updateUI();
         }
 
         function selectLeague(leagueId, buttonEl) {
@@ -67,18 +65,19 @@
                     leaderButton = document.querySelector('.league-choice-container .group-leader');
                     selectAllLeagues(leaderButton);
                 }
+                updateUI();
                 return;
             }
             document.querySelectorAll('.league-choice-container .group-leader').forEach(btn => btn.classList.remove('state-button-active'));
             buttonEl.classList.add('state-button-active')
             activeLeagues.push(leagueId);
+            updateUI();
         }
 
-        function loadTeamPlayers(teamId, buttonEl) {
-            document.querySelectorAll('.team-button-container button').forEach(btn => btn.classList.remove('active'));
-            buttonEl.classList.add('active');
+        function updateUI() {
+            console.log(activeLeagues);
 
-            fetch('/api/team-players/?team_id=' + teamId)
+            fetch('/api/team-players/?team_id=' + teamId + '&active_leagues=' + activeLeagues.join(','))
                 .then(response => response.json())
                 .then(data => {
                     const playerContainer = document.querySelector('.player-container');
@@ -133,8 +132,8 @@
                 });
         }
 
-        const initialButton = document.querySelector('.team-button-container button:last-child');
-        loadTeamPlayers(3, initialButton);
+        const initialButton = document.querySelector('.league-choice-container button:first-child');
+        initialButton.click();
     </script>
     
 </body>
