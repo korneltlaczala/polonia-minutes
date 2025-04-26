@@ -16,7 +16,6 @@ table tr {
     border-left-style: solid;
     border-left-width: 4px;
     transition: all 0.1s ease-out;
-    /* transition: all 1s ease-in-out; */
 }
 
 table tr:nth-child(even) {
@@ -39,7 +38,6 @@ table tr * {
 table tr button:hover {
     color: #c90000;
     font-weight: 700;
-    /* font-size: 1.02rem; */
 }
 
 table td,
@@ -53,14 +51,6 @@ table th {
     font-size: 0.8rem;
     padding: 1rem;
 }
-
-/* .team-table a {
-    text-decoration: none;
-    color: white;
-
-    font-size: 2rem;
-    font-weight: 600;
-} */
 
 table button {
     background-color: transparent;
@@ -86,6 +76,48 @@ table button:hover {
 
 table cell {
     padding: 1rem;
+}
+
+.match-blob {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    height: 2.2rem;
+    padding: 0.4rem;
+    background-color: rgb(51, 51, 51);
+    border-radius: 1.1rem;
+
+    transition: all 0.1s ease-out;
+}
+
+.match-blob .result {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.match-blob .score {
+    width: 2rem;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+.match-blob .minutes {
+    width: 2rem;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+.match-blob .logo {
+    height: 1.6rem;
+    width: 1.6rem;
+    border-radius: 1rem;
+}
+
+tr:hover .match-blob {
+    background-color: rgb(80, 80, 80);
 }
 
 @media (max-width: 600px) {

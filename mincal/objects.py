@@ -112,12 +112,10 @@ class Club:
         tempClub.prep_stats(active_leagues=active_leagues)
         team_id = int(team_id)
         team = tempClub.get_team(team_id)
-        print(team)
         players = []
         for player in tempClub.players:
             if player.belongs_to_team(team):
                 players.append(player)
-
         return players
 
     def __str__(self):

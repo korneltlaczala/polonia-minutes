@@ -5,6 +5,12 @@ class ApearanceSerializer(serializers.Serializer):
     duration = serializers.IntegerField()
     minute_in = serializers.IntegerField()
     minute_out = serializers.IntegerField()
+    score = serializers.CharField(source="match.scores.final")
+    host_logo_url = serializers.CharField(source="match.host.logo")
+    guest_logo_url = serializers.CharField(source="match.guest.logo")
+    host_name = serializers.CharField(source="match.host.name")
+    guest_name = serializers.CharField(source="match.guest.name")
+
 
 class PlayerSerializer(serializers.Serializer):
     id = serializers.CharField()
