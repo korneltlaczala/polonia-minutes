@@ -108,7 +108,7 @@
                             const appDiv = document.createElement('div');
                             appDiv.classList.add('appearance');
                             appDiv.innerHTML = `
-                                <div class="match-blob">
+                                <div class="match-blob" title="${app.day} ${new Date(app.date).toLocaleString('pl', { month: 'short' })}: ${app.host_name} ${app.score} ${app.guest_name}">
                                     <div class="result">
                                         <img class="logo host-logo" src="${app.host_logo_url}" alt="${app.host_name} logo">
                                         <span class="score">${app.score}</span>
@@ -121,7 +121,7 @@
                         })
                         row.innerHTML = `
                             <td><button>${player.firstname} ${player.lastname}</button></td>
-                            <td><cell>${player.minutes}</cell></td>
+                            <td><cell>${player.minutes}'</cell></td>
                             <td><cell>${player.apps}</cell></td>
                             <td><cell>${player.callings}</cell></td>
                             <td></td>
