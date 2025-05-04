@@ -19,6 +19,18 @@ def team(request, team_id):
                "team": team}
     return render(request, 'team.html', context)
 
+def team_minutes(request, team_id):
+    team = club.get_team(team_id)
+    context = {"club": club,
+               "team": team}
+    return render(request, 'team_minutes.html', context)
+
+def team_matches(request, team_id):
+    team = club.get_team(team_id)
+    context = {"club": club,
+               "team": team}
+    return render(request, 'team_matches.html', context)
+
 @api_view(['GET'])
 def team_players_api(request):
     team_id = request.GET.get('team_id')

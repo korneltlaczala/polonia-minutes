@@ -22,6 +22,8 @@ from . import views
 urlpatterns = [
     path('', views.choose_team, name='choose_team'),
     path('team/<int:team_id>', views.team, name='team'),
+    path('team/<int:team_id>/minutes', views.team_minutes, name='team_minutes'),
+    path('team/<int:team_id>/matches', views.team_matches, name='team_matches'),
 
     path('api/team-players/', views.team_players_api, name='team_players_api'),
 ]

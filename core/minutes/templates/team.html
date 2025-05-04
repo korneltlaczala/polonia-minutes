@@ -2,143 +2,145 @@
 {% load static %}
 
 {% block content %}
-<body>
-
-    <div class="container">
-        <div class="card">
-            <div class="nav-link">
-                <a href="{% url 'choose_team' %}"><i class="fas fa-arrow-circle-left"></i> Roczniki</a>
+<div class="container">
+    <div class="card">
+        <div class="nav-link">
+            <a href="{% url 'choose_team' %}"><i class="fas fa-arrow-circle-left"></i> Roczniki</a>
+        </div>
+        <div class="title">
+            <h1>Drużyna {{ team.category_age }}</h1>
+            <h3>{{ team.birthyear }}</h3>
+        </div>
+        <div class="league-choice-container">
+            <div>
+                <h3>Statystyki dla</h3>
             </div>
-            <div class="title">
-                <h1>Drużyna {{ team.category_age }}</h1>
-                <h3>{{ team.birthyear }}</h3>
-            </div>
-            <div class="league-choice-container">
-                <div>
-                    <h3>Statystyki dla</h3>
-                </div>
-                <div class="button-container">
-                    <button class="state-button group-leader" onclick="selectAllLeagues(this)">Wszystkie ligi</button>
-                    {% for league in team.active_leagues %}
-                        <button class="state-button" onclick="selectLeague('{{ league.id }}', this)">{{ league }}</button>
-                    {% endfor %}
-                </div>
+            <div class="button-container">
+                <button class="state-button group-leader" onclick="selectAllLeagues(this)">Wszystkie ligi</button>
+                {% for league in team.active_leagues %}
+                    <button class="state-button" onclick="selectLeague('{{ league.id }}', this)">{{ league }}</button>
+                {% endfor %}
             </div>
         </div>
+        <div class="tab-choice-container">
+            <ul>
+                <a href="{% url 'team_minutes' team.id %}"><li>Minuty</li"></a>
+                <a href="{% url 'team_matches' team.id %}"><li>Mecze</li></a>
+            </ul>
+        </div>
     </div>
+</div>
 
-    <div class="player-container container">
+{% block test %}{% endblock test %}
 
-    </div>
+<div class="player-container container"></div>
 
-    <script>
+<script>
 
+    activeLeagues = [];
+    teamId = "{{ team.id }}";
+
+    function selectAllLeagues(buttonEl) {
+        if (buttonEl.classList.contains('state-button-active')) {
+            document.querySelectorAll('.league-choice-container .state-button:not(.group-leader)').forEach(btn => {
+                btn.click();
+            });
+            updateUI();
+            return;
+        }
+        document.querySelectorAll('.league-choice-container .state-button').forEach(btn => btn.classList.remove('state-button-active'));
+        buttonEl.classList.add('state-button-active')
         activeLeagues = [];
-        teamId = "{{ team.id }}";
+        updateUI();
+    }
 
-        function selectAllLeagues(buttonEl) {
-            if (buttonEl.classList.contains('state-button-active')) {
-                document.querySelectorAll('.league-choice-container .state-button:not(.group-leader)').forEach(btn => {
-                    btn.click();
-                });
-                updateUI();
-                return;
-            }
-            document.querySelectorAll('.league-choice-container .state-button').forEach(btn => btn.classList.remove('state-button-active'));
-            buttonEl.classList.add('state-button-active')
-            activeLeagues = [];
-            updateUI();
-        }
-
-        function selectLeague(leagueId, buttonEl) {
-            if (buttonEl.classList.contains('state-button-active')) {
-                buttonEl.classList.remove('state-button-active');
-                activeLeagues.splice(activeLeagues.indexOf(leagueId), 1);
-                
-                anyLeagueSelected = false;
-                document.querySelectorAll('.league-choice-container .state-button').forEach(btn => {
-                    if (btn.classList.contains('state-button-active')) {
-                        anyLeagueSelected = true;
-                    }
-                });
-                if (! anyLeagueSelected) {
-                    leaderButton = document.querySelector('.league-choice-container .group-leader');
-                    selectAllLeagues(leaderButton);
+    function selectLeague(leagueId, buttonEl) {
+        if (buttonEl.classList.contains('state-button-active')) {
+            buttonEl.classList.remove('state-button-active');
+            activeLeagues.splice(activeLeagues.indexOf(leagueId), 1);
+            
+            anyLeagueSelected = false;
+            document.querySelectorAll('.league-choice-container .state-button').forEach(btn => {
+                if (btn.classList.contains('state-button-active')) {
+                    anyLeagueSelected = true;
                 }
-                updateUI();
-                return;
+            });
+            if (! anyLeagueSelected) {
+                leaderButton = document.querySelector('.league-choice-container .group-leader');
+                selectAllLeagues(leaderButton);
             }
-            document.querySelectorAll('.league-choice-container .group-leader').forEach(btn => btn.classList.remove('state-button-active'));
-            buttonEl.classList.add('state-button-active')
-            activeLeagues.push(leagueId);
             updateUI();
+            return;
         }
+        document.querySelectorAll('.league-choice-container .group-leader').forEach(btn => btn.classList.remove('state-button-active'));
+        buttonEl.classList.add('state-button-active')
+        activeLeagues.push(leagueId);
+        updateUI();
+    }
 
-        function updateUI() {
-            fetch('/api/team-players/?team_id=' + teamId + '&active_leagues=' + activeLeagues.join(','))
-                .then(response => response.json())
-                .then(data => {
-                    const playerContainer = document.querySelector('.player-container');
-                    playerContainer.innerHTML = '';
+    function updateUI() {
+        fetch('/api/team-players/?team_id=' + teamId + '&active_leagues=' + activeLeagues.join(','))
+            .then(response => response.json())
+            .then(data => {
+                const playerContainer = document.querySelector('.player-container');
+                playerContainer.innerHTML = '';
 
-                    if (! data.players || data.players.length == 0) {
-                        playerContainer.innerHTML = 'No players found';
-                        return;
-                    }
+                if (! data.players || data.players.length == 0) {
+                    playerContainer.innerHTML = 'No players found';
+                    return;
+                }
 
-                    const table = document.createElement('table');
-                    table.classList.add('player-table');
-                    const headerRow = document.createElement('tr');
-                    headerRow.innerHTML = `
-                        <th>Zawodnik</th>
-                        <th>Minuty</th>
-                        <th>Występy</th>
-                        <th>Powołania</th>
-                        <th>Ostatni mecz</th>
-                    `;
-                    table.appendChild(headerRow);
+                const table = document.createElement('table');
+                table.classList.add('player-table');
+                const headerRow = document.createElement('tr');
+                headerRow.innerHTML = `
+                    <th>Zawodnik</th>
+                    <th>Minuty</th>
+                    <th>Występy</th>
+                    <th>Powołania</th>
+                    <th>Ostatni mecz</th>
+                `;
+                table.appendChild(headerRow);
 
-                    data.players.sort((a, b) => b.callings - a.callings);
-                    data.players.sort((a, b) => b.minutes - a.minutes);
+                data.players.sort((a, b) => b.callings - a.callings);
+                data.players.sort((a, b) => b.minutes - a.minutes);
 
-                    data.players.forEach(player => {
-                        const row = document.createElement('tr');
-                        const appContainer = document.createElement('div');
-                        player.appearances.slice(-1).forEach(app => {
-                            const appDiv = document.createElement('div');
-                            appDiv.classList.add('appearance');
-                            appDiv.innerHTML = `
-                                <div class="match-blob">
-                                    <div class="result">
-                                        <img class="logo host-logo" src="${app.host_logo_url}" alt="${app.host_name} logo">
-                                        <span class="score">${app.score}</span>
-                                        <img class="logo guest-logo" src="${app.guest_logo_url}" alt="${app.guest_name} logo">
-                                    </div>
-                                    <span class="minutes">${app.duration}'</span>
+                data.players.forEach(player => {
+                    const row = document.createElement('tr');
+                    const appContainer = document.createElement('div');
+                    player.appearances.slice(-1).forEach(app => {
+                        const appDiv = document.createElement('div');
+                        appDiv.classList.add('appearance');
+                        appDiv.innerHTML = `
+                            <div class="match-blob">
+                                <div class="result">
+                                    <img class="logo host-logo" src="${app.host_logo_url}" alt="${app.host_name} logo">
+                                    <span class="score">${app.score}</span>
+                                    <img class="logo guest-logo" src="${app.guest_logo_url}" alt="${app.guest_name} logo">
                                 </div>
-                            `;
-                            appContainer.appendChild(appDiv);
-                        })
-                        row.innerHTML = `
-                            <td><button>${player.firstname} ${player.lastname}</button></td>
-                            <td><cell>${player.minutes}</cell></td>
-                            <td><cell>${player.apps}</cell></td>
-                            <td><cell>${player.callings}</cell></td>
-                            <td></td>
+                                <span class="minutes">${app.duration}'</span>
+                            </div>
                         `;
-                        const cells = row.querySelectorAll('td');
-                        cells[4].appendChild(appContainer);
+                        appContainer.appendChild(appDiv);
+                    })
+                    row.innerHTML = `
+                        <td><button>${player.firstname} ${player.lastname}</button></td>
+                        <td><cell>${player.minutes}</cell></td>
+                        <td><cell>${player.apps}</cell></td>
+                        <td><cell>${player.callings}</cell></td>
+                        <td></td>
+                    `;
+                    const cells = row.querySelectorAll('td');
+                    cells[4].appendChild(appContainer);
 
-                        row.classList.add('player-row');
-                        table.appendChild(row);
-                    });
-                    playerContainer.appendChild(table);
+                    row.classList.add('player-row');
+                    table.appendChild(row);
                 });
-        }
+                playerContainer.appendChild(table);
+            });
+    }
 
-        const initialButton = document.querySelector('.league-choice-container button:first-child');
-        initialButton.click();
-    </script>
-    
-</body>
+    const initialButton = document.querySelector('.league-choice-container button:first-child');
+    initialButton.click();
+</script>
 {% endblock content %}
