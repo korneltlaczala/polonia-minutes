@@ -26,4 +26,5 @@ urlpatterns = [
     path('team/<int:team_id>/matches', views.team_matches, name='team_matches'),
 
     path('api/team-players/', views.team_players_api, name='team_players_api'),
+    path('api/team-matches/', views.team_matches_api, name='team_matches_api'),
 ]

@@ -43,6 +43,7 @@ button.active {
 
 .container {
     width: 90%;
+    max-width: 1000px;
 }
 
 .card {
@@ -98,6 +99,14 @@ a:hover button {
 .state-button-active:hover {
     color: white;
     border-color: white;
+}
+
+.tab-container {
+    display: none;
+}
+
+.tab-container-active {
+    display: block;
 }
 
 @media (max-width: 600px) {

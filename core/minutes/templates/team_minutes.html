@@ -1,6 +1,68 @@
-{% extends 'team.html' %}
 {% load static %}
 
-{% block test %}
-<p>minutes</p>
-{% endblock test %}
+<div class="player-container"></div>
+
+<script>
+function updateUIminutes() {
+    fetch('/api/team-players/?team_id=' + teamId + '&active_leagues=' + activeLeagues.join(','))
+        .then(response => response.json())
+        .then(data => {
+            const playerContainer = document.querySelector('.player-container');
+            playerContainer.innerHTML = '';
+
+            if (! data.players || data.players.length == 0) {
+                playerContainer.innerHTML = 'No players found';
+                return;
+            }
+
+            const table = document.createElement('table');
+            table.classList.add('player-table');
+            const headerRow = document.createElement('tr');
+            headerRow.innerHTML = `
+                <th>Zawodnik</th>
+                <th>Minuty</th>
+                <th>Występy</th>
+                <th>Powołania</th>
+                <th>Ostatni mecz</th>
+            `;
+            table.appendChild(headerRow);
+
+            data.players.sort((a, b) => b.callings - a.callings);
+            data.players.sort((a, b) => b.minutes - a.minutes);
+
+            data.players.forEach(player => {
+                const row = document.createElement('tr');
+                const appContainer = document.createElement('div');
+                player.appearances.slice(-1).forEach(app => {
+                    const match = app.match;
+                    const appDiv = document.createElement('div');
+                    appDiv.classList.add('appearance');
+                    appDiv.innerHTML = `
+                        <div class="match-blob" title="${match.day} ${new Date(match.date).toLocaleString('pl', { month: 'short' })}: ${match.host_name} ${match.score} ${match.guest_name}">
+                            <div class="result">
+                                <img class="logo host-logo" src="${match.host_logo_url}" alt="${match.host_name} logo">
+                                <span class="score">${match.score}</span>
+                                <img class="logo guest-logo" src="${match.guest_logo_url}" alt="${match.guest_name} logo">
+                            </div>
+                            <span class="minutes">${app.duration}'</span>
+                        </div>
+                    `;
+                    appContainer.appendChild(appDiv);
+                })
+                row.innerHTML = `
+                    <td><button>${player.firstname} ${player.lastname}</button></td>
+                    <td><cell>${player.minutes}'</cell></td>
+                    <td><cell>${player.apps}</cell></td>
+                    <td><cell>${player.callings}</cell></td>
+                    <td></td>
+                `;
+                const cells = row.querySelectorAll('td');
+                cells[4].appendChild(appContainer);
+
+                row.classList.add('player-row');
+                table.appendChild(row);
+            });
+            playerContainer.appendChild(table);
+        });
+}
+</script>

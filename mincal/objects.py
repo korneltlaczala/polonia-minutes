@@ -118,6 +118,14 @@ class Club:
                 players.append(player)
         return players
 
+    def get_matches_for_team(self, team_id, active_leagues=None):
+        self.folder = self.folder[(self.folder.rfind("/") + 1):]
+        tempClub = Club(self.name, self.folder)
+        tempClub.prep_stats(active_leagues=active_leagues)
+        team_id = int(team_id)
+        team = tempClub.get_team(team_id)
+        return team.matches
+
     def __str__(self):
         output = ""
         for team in self.teams:
@@ -150,6 +158,15 @@ class Team:
             if player.belongs_to_team(self):
                 players.append(player)
         return players
+
+    @property
+    def matches(self):
+        played_matches = []
+        not_played_matches = []
+        for league in self.active_leagues:
+            played_matches += league.played_matches
+            not_played_matches += league.not_played_matches
+        return played_matches, not_played_matches
 
     @property
     def active_leagues(self):
@@ -279,8 +296,11 @@ class League:
         self.load_matches()
         for match in self.played_matches:
             if not match.events_downloaded() or force:
-                print(match)
+                print(f"Downloading events for {match}")
                 match.download_events()
+            if not match.info_downloaded() or force:
+                print(f"Downloading info for {match}")
+                match.download_info()
 
     def repair_matches(self):
         files_to_repair = ["played-matches.json", "not-played-matches.json"]
@@ -402,6 +422,7 @@ class Match:
         print(f"from {self.url}")
         match_dir = os.path.join(self.club.folder, self.league.folder, self.id)
         util.prep_dir(match_dir)
+        print(type(self.matchId))
         util.catch_and_save_files(self.url, ["events"], match_dir)
 
     @property

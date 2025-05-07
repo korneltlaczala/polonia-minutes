@@ -1,6 +1,39 @@
-{% extends 'team.html' %}
 {% load static %}
 
-{% block test %}
-<p>matches</p>
-{% endblock test %}
+<div class="match-container"></div>
+
+<script>
+function updateUImatches() {
+    fetch('/api/team-matches/?team_id=' + teamId + '&active_leagues=' + activeLeagues.join(','))
+        .then(response => response.json())
+        .then(data => {
+            const matchContainer = document.querySelector('.match-container');
+            matchContainer.innerHTML = '';
+
+            if (! data.played_matches || data.played_matches.length == 0) {
+                matchContainer.innerHTML = 'No matches found';
+                return;
+            }
+
+            const table = document.createElement('table');
+            table.classList.add('match-table');
+
+            data.played_matches.sort((a, b) => b.date - a.date);
+            
+            data.played_matches.forEach(match => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${match.host_name}</td>
+                    <td><img class="logo" src="${match.host_logo_url}"></td>
+                    <td>${match.score}</td>
+                    <td><img class="logo" src="${match.guest_logo_url}"></td>
+                    <td>${match.guest_name}</td>
+                `;
+                row.classList.add('match-row');
+                table.appendChild(row);
+            });
+
+            matchContainer.appendChild(table);
+        })
+}
+</script>

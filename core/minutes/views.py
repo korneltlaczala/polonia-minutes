@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .serializers import PlayerSerializer
+from .serializers import PlayerSerializer, MatchSerializer
 from mincal import Club
 
 from rest_framework.response import Response
@@ -41,3 +41,16 @@ def team_players_api(request):
     players = club.get_players_for_team(team_id, active_leagues)
     serializer = PlayerSerializer(players, many=True)
     return Response({"players": serializer.data})
+
+@api_view(['GET'])
+def team_matches_api(request):
+    team_id = request.GET.get('team_id')
+    active_leagues = request.GET.get('active_leagues')
+    if not team_id:
+        return Response({"error": "No team provided"}, status=400)
+
+    played_matches, not_played_matches = club.get_matches_for_team(team_id, active_leagues)
+    serializer_played = MatchSerializer(played_matches, many=True)
+    serializer_not_played = MatchSerializer(not_played_matches, many=True)
+    return Response({"played_matches": serializer_played.data, "not_played_matches": serializer_not_played.data})
+    
