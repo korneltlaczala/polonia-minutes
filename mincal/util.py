@@ -11,7 +11,12 @@ def catch_and_save_files(url, files, dir):
     sniffer.driver.get(url)
     for file in files:
         json_data = sniffer.catch_file(file)
+        if json_data is None:
+            print(f"Failed to catch {file}")
+            print(f"{file} file not saved")
+            continue
         dump_json(dir, file, json_data)
+        print(f"Saved file {file}")
     sniffer.destroy()
 
 def dump_json(dir, file, json_data):
