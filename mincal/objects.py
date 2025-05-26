@@ -94,9 +94,9 @@ class Club:
         for league in self.leagues:
             league.download_matches()
 
-    def download_players(self):
+    def download_players(self, force=False):
         for league in self.leagues:
-            league.download_players()
+            league.download_players(force=force)
 
     def download_match_data(self):
         for league in self.leagues:
