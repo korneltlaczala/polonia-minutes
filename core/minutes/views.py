@@ -22,7 +22,8 @@ def team(request, team_id):
 @api_view(['GET'])
 def team_players_api(request):
     team_id = request.GET.get('team_id')
-    active_leagues = request.GET.get('active_leagues')
+    active_leagues_raw = request.GET.get('active_leagues', '').strip()
+    active_leagues = active_leagues_raw.split(',') if active_leagues_raw else []
     if not team_id:
         return Response({"error": "No team provided"}, status=400)
 
