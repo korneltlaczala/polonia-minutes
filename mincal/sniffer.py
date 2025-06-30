@@ -13,11 +13,17 @@ class Sniffer:
         # options.add_argument('--headless')
         self.driver = webdriver.Chrome(options=options)
 
-    def wait_for(self, filename, delay=0.1):
+    def wait_for(self, filename, delay=0.5, timeout=6):
+        time_elapsed = 0
         while not self.file_loaded(filename):
             print(f"Waiting for {filename}...")
+            time_elapsed += delay
+            if time_elapsed > timeout:
+                print(f"Timed out waiting for {filename}")
+                return 0
             time.sleep(delay)
         print(f"File {filename} found!")
+        return 1
 
     def file_loaded(self, filename):
         for request in self.driver.requests:
@@ -26,7 +32,9 @@ class Sniffer:
         return False
 
     def catch_file(self, filename):
-        self.wait_for(filename)
+        response = self.wait_for(filename)
+        if not response:
+            return None
         for request in self.driver.requests:
             if f"/{filename}" in request.url and request.response is not None and request.response.status_code == 200:
                 response = request.response

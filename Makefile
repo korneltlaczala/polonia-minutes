@@ -28,7 +28,7 @@ download_matches:
 	python scripts/download_matches.py
 
 download_players:
-	python scripts/download_players.py
+	python scripts/download_players.py $(FORCE)
 
 download_match_data:
 	python scripts/download_match_data.py
