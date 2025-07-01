@@ -23,17 +23,18 @@ function updateUIstats() {
                 <th>Zawodnik</th>
                 <th>Bramki</th>
                 <th>Bramki na 90'</th>
+                <!-- <th>Bramki na mecz</th> -->
             `;
             table.appendChild(headerRow);
 
-            data.players.sort((a, b) => b.callings - a.callings);
-            data.players.sort((a, b) => b.minutes - a.minutes);
+            data.players.sort((a, b) => b.goal_count - a.goal_count);
             data.players.forEach(player => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td><button>${player.firstname} ${player.lastname}</button></td>
-                    <td><cell>${player.goals}'</cell></td>
+                    <td><cell>${player.goal_count}</cell></td>
                     <td><cell>${player.goals_per_90}</cell></td>
+                    <!-- <td><cell>${player.goals_per_game}</cell></td> -->
                 `;
 
                 row.classList.add('player-row');

@@ -153,12 +153,12 @@ tr:hover .match-blob .minutes {
     user-select: none;
 } */
 
-@media (max-width: 600px) {
+@media (max-width: 730px) {
     .player-minutes-table {
-        td:nth-child(4),
-        th:nth-child(4),
         td:nth-child(5),
-        th:nth-child(5) {
+        th:nth-child(5),
+        td:nth-child(6),
+        th:nth-child(6) {
             display: none;
         }
     }

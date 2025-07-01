@@ -116,6 +116,24 @@ class Club:
         for player in tempClub.players:
             if player.belongs_to_team(team):
                 players.append(player)
+
+        # for player in players:
+        #     print(f"{player}")
+        #     for app in player.appearances:
+        #         print(f"\t{app.match} ({app.duration} min), {app.goals} - {app.goal_count}")
+
+        # print(f"{len(players)} have scored {sum([p.goal_count for p in players])} goals")
+
+        played_matches = team.matches[0]
+        for match in played_matches:
+            print(f"Match: {match}")
+            for player in players:
+                for appearance in player.appearances:
+                    if appearance.match != match:
+                        continue
+                    if appearance.goal_count > 0:
+                        print(f"\t{player} scored {appearance.goal_count} goals")
+                        
         return players
 
     def get_matches_for_team(self, team_id, active_leagues=None):
@@ -480,12 +498,20 @@ class Player:
             return round(self.minutes / self.apps, 2)
         return 0
 
-    def goals(self):
-        return sum([app.goals for app in self.appearances if app.played])
+    @property
+    def goal_count(self):
+        return sum([app.goal_count for app in self.appearances])
 
+    @property
     def goals_per_90(self):
         if self.minutes > 0:
-            return round(self.goals() / (self.minutes / 90), 2)
+            return round(self.goal_count / (self.minutes / 90), 2)
+        return 0
+
+    @property
+    def goals_per_game(self):
+        if self.apps > 0:
+            return round(self.goal_count / self.apps, 2)
         return 0
 
     @property
@@ -553,6 +579,11 @@ class Appearance:
             self.played = False
             self.minute_in = 91
 
+    @property
+    def goal_count(self):
+        if len(self.goals) == 0:
+            return 0
+        return len(self.goals)
 
     @property
     def duration(self):
