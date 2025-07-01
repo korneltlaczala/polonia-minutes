@@ -40,6 +40,10 @@ table tr button:hover {
     font-weight: 700;
 }
 
+table .match-table-header-row th {
+    text-align: center;
+}
+
 table td,
 table th
 {
@@ -50,6 +54,22 @@ table th {
     color: #aaa;
     font-size: 0.8rem;
     padding: 1rem;
+}
+
+/* table .match-table-row td {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+} */
+
+table .match-table-row td {
+    text-align: center;
+}
+
+table .match-table-row img {
+    height: 1.6rem;
+    width: 1.6rem;
+    border-radius: 1rem;
 }
 
 table button {
@@ -122,6 +142,16 @@ table cell {
 tr:hover .match-blob {
     background-color: rgb(80, 80, 80);
 }
+
+tr:hover .match-blob .minutes {
+    border-left: 1px solid rgb(51, 51, 51);
+}
+/* 
+.match-blob:hover {
+    transform: scale(1.02);
+    cursor: pointer;
+    user-select: none;
+} */
 
 @media (max-width: 600px) {
     .player-table {

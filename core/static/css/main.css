@@ -53,6 +53,10 @@ button.active {
     padding: 1rem;
 }
 
+/* .header-card {
+    padding-bottom: 0.2rem;
+} */
+
 .nav-link {
     margin-bottom: 1rem;
 }
@@ -101,6 +105,80 @@ a:hover button {
     border-color: white;
 }
 
+.title-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+.title-container .title {
+    min-width: 18rem;
+}
+
+.title-container .league-choice-container {
+    min-width: 10rem;
+}
+
+@media (max-width: 40rem) { /* 18rem + 10rem + 1rem gap */
+    .title-container {
+        flex-wrap: wrap;
+    }
+}
+
+.tab-choice-container {
+    margin-top: 1rem;
+}
+
+.tab-choice-container ul {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.tab-button {
+    padding: 1rem 2rem 0.2rem;
+    border: none;
+    background-color: transparent;
+    color: #aaa;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: transform 0.1s ease-in-out;
+}
+
+.tab-button::after {
+    content: '';
+    display: block;
+    margin-top: 0.1rem;
+    width: 100%;
+    height: 0.1rem;
+    background-color: #aaa;
+    transform: scaleX(0);
+    transition: transform 0.1s ease-in-out;
+}
+
+.tab-button:hover {
+    color: #ccc;
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+.tab-button:hover::after {
+    transform: scaleX(1);
+}
+
+.tab-button-active {
+    color: #c90000;
+}
+
+.tab-button-active:hover {
+    color: #c90000;
+    transform: scale(1.05);
+}
+
+.tab-button-active::after {
+    transform: scaleX(1);
+    background-color: #c90000;
+}
+
 .tab-container {
     display: none;
 }
@@ -115,37 +193,3 @@ a:hover button {
     }
 }
 
-/* .player-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.player-table td,
-.player-table th {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-.player-table tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-.player-table tr:nth-child(odd) {
-    background-color: white;
-}
-
-.player-table th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #bf110b;
-    color: white;
-}
-
-.player-table tr {
-    transition: all 0.1s ease-in-out;
-}
-
-.player-table tr:hover {
-    background-color: #ddd;
-} */

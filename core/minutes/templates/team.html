@@ -4,31 +4,37 @@
 {% block content %}
 <body>
 
-    <div class="card container">
+    <div class="card container header-card">
+
         <div class="nav-link">
             <a href="{% url 'choose_team' %}"><i class="fas fa-arrow-circle-left"></i> Roczniki</a>
         </div>
-        <div class="title">
-            <h1>Drużyna {{ team.category_age }}</h1>
-            <h3>{{ team.birthyear }}</h3>
-        </div>
-        <div class="league-choice-container">
-            <div>
-                <h3>Statystyki dla</h3>
+
+        <div class="title-container">
+            <div class="title">
+                <h1>Drużyna {{ team.category_age }}</h1>
+                <h3>{{ team.birthyear }}</h3>
             </div>
-            <div class="button-container">
-                <button class="state-button group-leader" onclick="selectAllLeagues(this)">Wszystkie ligi</button>
-                {% for league in team.active_leagues %}
-                    <button class="state-button" onclick="selectLeague('{{ league.id }}', this)">{{ league }}</button>
-                {% endfor %}
+            <div class="league-choice-container">
+                <div>
+                    <h3>Statystyki dla</h3>
+                </div>
+                <div class="button-container">
+                    <button class="state-button group-leader" onclick="selectAllLeagues(this)">Wszystkie ligi</button>
+                    {% for league in team.active_leagues %}
+                        <button class="state-button" onclick="selectLeague('{{ league.id }}', this)">{{ league }}</button>
+                    {% endfor %}
+                </div>
             </div>
         </div>
+
         <div class="tab-choice-container">
             <ul>
                 <button class="tab-button" onclick="selectTab(this, 'tab-minutes')">Minuty</button>
                 <button class="tab-button" onclick="selectTab(this, 'tab-matches')">Mecze</button>
             </ul>
         </div>
+
     </div>
 
     <div class="tab-containers container">
@@ -99,6 +105,9 @@
             updateUImatches();
         }
 
+        initial_tab_name = 'tab-minutes';
+        initial_tab_button = document.querySelector('.tab-button[onclick*="' + initial_tab_name + '"]');
+        selectTab(initial_tab_button, initial_tab_name);
     </script>
     
 </body>
