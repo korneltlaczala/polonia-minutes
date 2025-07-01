@@ -475,6 +475,20 @@ class Player:
         return sum([app.duration for app in self.appearances if app.played])
 
     @property
+    def minutes_per_game(self):
+        if self.apps > 0:
+            return round(self.minutes / self.apps, 2)
+        return 0
+
+    def goals(self):
+        return sum([app.goals for app in self.appearances if app.played])
+
+    def goals_per_90(self):
+        if self.minutes > 0:
+            return round(self.goals() / (self.minutes / 90), 2)
+        return 0
+
+    @property
     def active_leagues(self):
         leagues = []
         for app in self.appearances:

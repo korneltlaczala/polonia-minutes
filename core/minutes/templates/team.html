@@ -32,6 +32,7 @@
             <ul>
                 <button class="tab-button" onclick="selectTab(this, 'tab-minutes')">Minuty</button>
                 <button class="tab-button" onclick="selectTab(this, 'tab-matches')">Mecze</button>
+                <button class="tab-button" onclick="selectTab(this, 'tab-stats')">Statystyki</button>
             </ul>
         </div>
 
@@ -43,6 +44,9 @@
         </div>
         <div class="tab-container tab-matches">
             {% include 'team_matches.html' %}
+        </div>
+        <div class="tab-container tab-stats">
+            {% include 'team_stats.html' %}
         </div>
     </div>
 
@@ -90,6 +94,7 @@
         }
 
         function selectTab(buttonEl, tabName) {
+            console.log('selectTab', buttonEl, tabName);
             document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('tab-button-active'));
             buttonEl.classList.add('tab-button-active');
 
@@ -103,6 +108,7 @@
         function updateUI() {
             updateUIminutes();
             updateUImatches();
+            updateUIstats();
         }
 
         initial_tab_name = 'tab-minutes';

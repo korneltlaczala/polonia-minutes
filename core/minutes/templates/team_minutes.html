@@ -22,6 +22,7 @@ function updateUIminutes() {
             headerRow.innerHTML = `
                 <th>Zawodnik</th>
                 <th>Minuty</th>
+                <th>Średnia minut</th>
                 <th>Występy</th>
                 <th>Powołania</th>
                 <th>Ostatni mecz</th>
@@ -52,12 +53,13 @@ function updateUIminutes() {
                 row.innerHTML = `
                     <td><button>${player.firstname} ${player.lastname}</button></td>
                     <td><cell>${player.minutes}'</cell></td>
+                    <td><cell>${player.minutes_per_game}'</cell></td>
                     <td><cell>${player.apps}</cell></td>
                     <td><cell>${player.callings}</cell></td>
                     <td></td>
                 `;
                 const cells = row.querySelectorAll('td');
-                cells[4].appendChild(appContainer);
+                cells[5].appendChild(appContainer);
 
                 row.classList.add('player-row');
                 table.appendChild(row);

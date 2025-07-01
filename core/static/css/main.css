@@ -135,7 +135,7 @@ a:hover button {
 }
 
 .tab-button {
-    padding: 1rem 2rem 0.2rem;
+    padding: 1rem 2rem 0rem;
     border: none;
     background-color: transparent;
     color: #aaa;
@@ -190,6 +190,11 @@ a:hover button {
 @media (max-width: 600px) {
     .container {
         width: 100%;
+    }
+
+    .tab-button {
+        padding: 0.5rem 1rem 0;
+        font-size: 0.8rem;
     }
 }
 

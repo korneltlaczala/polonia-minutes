@@ -30,7 +30,9 @@ ALLOWED_HOSTS = [
     'minuty.korneltlaczala.com',
     'localhost',
     '127.0.0.1',
-    '192.168.0.10']
+    '192.168.0.10',
+    '192.168.37.113',
+]
 
 
 # Application definition

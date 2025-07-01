@@ -49,9 +49,12 @@ class PlayerSerializer(serializers.Serializer):
     firstname = serializers.CharField()
     lastname = serializers.CharField()
     minutes = serializers.IntegerField()
+    minutes_per_game = serializers.IntegerField()
     apps = serializers.IntegerField()
     callings = serializers.IntegerField()
     appearances = ApearanceSerializer(many=True)
+    # goals = serializers.IntegerField()
+    # goals_per_90 = serializers.FloatField()
 
     def get_name(self, obj):
         return f"{obj.firstname} {obj.lastname}"
