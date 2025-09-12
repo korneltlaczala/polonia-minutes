@@ -200,11 +200,19 @@ class Team:
 
     @property
     def age(self):
-        return int(self.category_age[2:])
+        try:
+            return int(self.category_age[2:])
+        except:
+            return -1
 
     @property
     def birthyear(self):
-        return datetime.date.today().year - self.age
+        if self.age == -1:
+            return "seniorzy"
+        if datetime.date.today().month < 7:
+            return datetime.date.today().year - self.age
+        else:
+            return datetime.date.today().year - self.age + 1
 
     def __str__(self):
         return f"{self.category}, {self.category_age}"

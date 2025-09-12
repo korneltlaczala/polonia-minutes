@@ -13,7 +13,7 @@ class Sniffer:
         # options.add_argument('--headless')
         self.driver = webdriver.Chrome(options=options)
 
-    def wait_for(self, filename, delay=0.5, timeout=6):
+    def wait_for(self, filename, delay=0.5, timeout=15):
         time_elapsed = 0
         while not self.file_loaded(filename):
             print(f"Waiting for {filename}...")
