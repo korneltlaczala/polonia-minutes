@@ -324,9 +324,9 @@ class League:
             if not match.events_downloaded() or force:
                 print(f"Downloading events for {match}")
                 match.download_events()
-            if not match.info_downloaded() or force:
-                print(f"Downloading info for {match}")
-                match.download_info()
+            # if not match.info_downloaded() or force:
+            #     print(f"Downloading info for {match}")
+            #     match.download_info()
 
     def repair_matches(self):
         files_to_repair = ["played-matches.json", "not-played-matches.json"]
