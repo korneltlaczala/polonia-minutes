@@ -25,7 +25,7 @@ install:
 	$(RMDIR) mincal.egg-info
 
 download_matches:
-	python scripts/download_matches.py
+	python scripts/download_matches.py $(ONLY_NEW_LEAGUES)
 
 download_players:
 	python scripts/download_players.py $(FORCE)

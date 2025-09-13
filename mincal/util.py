@@ -6,7 +6,7 @@ def prep_dir(dir):
     if not os.path.exists(dir):
         os.makedirs(dir)
 
-def catch_and_save_files(url, files, dir):
+def catch_and_save_files(url, files, dir, savename=None):
     sniffer = Sniffer()
     sniffer.driver.get(url)
     for file in files:

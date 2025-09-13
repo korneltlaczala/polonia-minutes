@@ -16,6 +16,7 @@ class Club:
         self.load_players()
         for league in self.leagues:
             if active_leagues is None or len(active_leagues) == 0 or league.id in active_leagues:
+                print("Prepping stats for league:", league)
                 league.prep_stats()
 
     def read_teams(self):
@@ -90,9 +91,9 @@ class Club:
         for league in self.leagues:
             print(league)
 
-    def download_matches(self):
+    def download_matches(self, only_new_leagues=False):
         for league in self.leagues:
-            league.download_matches()
+            league.download_matches(only_new_leagues=only_new_leagues)
 
     def download_players(self, force=False):
         for league in self.leagues:
@@ -203,11 +204,11 @@ class Team:
         try:
             return int(self.category_age[2:])
         except:
-            return -1
+            return 100
 
     @property
     def birthyear(self):
-        if self.age == -1:
+        if self.age == 100:
             return "seniorzy"
         if datetime.date.today().month < 7:
             return datetime.date.today().year - self.age
@@ -303,7 +304,11 @@ class League:
         for player in sorted(list, key=lambda player: player.minutes, reverse=True):
             player.show_minutes()
 
-    def download_matches(self):
+    def download_matches(self, only_new_leagues=False):
+        if only_new_leagues and (self.played_matches_downloaded() and self.not_played_matches_downloaded()):
+            print(f"Matches already downloaded for {self}")
+            return
+
         dir = os.path.join(self.club.folder, self.folder)
         util.prep_dir(dir)
         util.catch_and_save_files(self.url, ["played-matches", "not-played-matches"], dir)
@@ -324,9 +329,9 @@ class League:
             if not match.events_downloaded() or force:
                 print(f"Downloading events for {match}")
                 match.download_events()
-            # if not match.info_downloaded() or force:
-            #     print(f"Downloading info for {match}")
-            #     match.download_info()
+            if not match.info_downloaded() or force:
+                print(f"Downloading info for {match}")
+                match.download_info()
 
     def repair_matches(self):
         files_to_repair = ["played-matches.json", "not-played-matches.json"]
@@ -355,6 +360,14 @@ class League:
     def players_downloaded(self):
         dir = os.path.join(self.club.folder, self.folder)
         return os.path.exists(os.path.join(dir, "players.json"))
+
+    def played_matches_downloaded(self):
+        dir = os.path.join(self.club.folder, self.folder)
+        return os.path.exists(os.path.join(dir, "played-matches.json"))
+    
+    def not_played_matches_downloaded(self):
+        dir = os.path.join(self.club.folder, self.folder)
+        return os.path.exists(os.path.join(dir, "not-played-matches.json"))
 
     @property
     def team(self):
@@ -408,10 +421,6 @@ class Match:
         with open(os.path.join(match_dir, "events.json"), "r", encoding="utf-8") as f:
             self.events = json.load(f)
 
-    def events_downloaded(self):
-        match_dir = os.path.join(self.club.folder, self.league.folder, self.id)
-        return os.path.exists(os.path.join(match_dir, "events.json"))
-
     def prep_stats(self):
         if not self.events_downloaded():
             return
@@ -450,6 +459,18 @@ class Match:
         util.prep_dir(match_dir)
         print(type(self.matchId))
         util.catch_and_save_files(self.url, ["events"], match_dir)
+
+    def download_info(self):
+        print(f"Downloading info for {self}")
+        print(f"from {self.url}")
+        print(f"Match ID: {self.matchId}")
+        # match_dir = os.path.join(self.club.folder, self.league.folder, self.id)
+        # util.prep_dir(match_dir)
+        # util.catch_and_save_files(self.url, ["info"], match_dir)
+
+    def info_downloaded(self):
+        match_dir = os.path.join(self.club.folder, self.league.folder, self.id)
+        return os.path.exists(os.path.join(match_dir, "info.json"))
 
     @property
     def id(self):

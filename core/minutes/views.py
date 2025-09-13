@@ -39,6 +39,8 @@ def team_players_api(request):
     if not team_id:
         return Response({"error": "No team provided"}, status=400)
 
+    print(f"Getting players for team: {team_id}")
+    print(f"Active leagues: {active_leagues}")
     players = club.get_players_for_team(team_id, active_leagues)
     serializer = PlayerSerializer(players, many=True)
     return Response({"players": serializer.data})
