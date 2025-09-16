@@ -36,16 +36,16 @@ class Sniffer:
         if not response:
             return None
         for request in self.driver.requests:
-            print(f"Request URL: {request.url}")
-            print(f"status code: {request.response.status_code if request.response else 'No response'}")
+            # print(f"Request URL: {request.url}")
+            # print(f"status code: {request.response.status_code if request.response else 'No response'}")
             if f"/{filename}" in request.url and f"/api" in request.url and request.response is not None and request.response.status_code == 200:
                 response = request.response
                 body = decode(response.body, response.headers.get('Content-Encoding', 'identity'))
                 body = body.decode('utf-8')
                 # print("body:", body)
 
-                # json_data = json.loads(body)
-                # return json_data
+                json_data = json.loads(body)
+                return json_data
 
     def capture(self, team):
         self.set_team(team)
