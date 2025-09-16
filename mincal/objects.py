@@ -329,9 +329,11 @@ class League:
             if not match.events_downloaded() or force:
                 print(f"Downloading events for {match}")
                 match.download_events()
-            if not match.info_downloaded() or force:
-                print(f"Downloading info for {match}")
-                match.download_info()
+            else: 
+                print(f"Results for {match} already downloaded\t file size: {5}")
+            # if not match.info_downloaded() or force:
+            #     print(f"Downloading info for {match}")
+            #     match.download_info()
 
     def repair_matches(self):
         files_to_repair = ["played-matches.json", "not-played-matches.json"]
@@ -416,6 +418,13 @@ class Match:
         match_dir = os.path.join(self.club.folder, self.league.folder, self.id)
         return os.path.exists(os.path.join(match_dir, "events.json"))
 
+    @property
+    def events_file_size(self):
+        match_dir = os.path.join(self.club.folder, self.league.folder, self.id)
+        if not self.events_downloaded():
+            return 0
+        return os.path.getsize(os.path.join(match_dir, "events.json"))
+
     def load_events(self):
         match_dir = os.path.join(self.club.folder, self.league.folder, self.id)
         with open(os.path.join(match_dir, "events.json"), "r", encoding="utf-8") as f:
@@ -464,9 +473,9 @@ class Match:
         print(f"Downloading info for {self}")
         print(f"from {self.url}")
         print(f"Match ID: {self.matchId}")
-        # match_dir = os.path.join(self.club.folder, self.league.folder, self.id)
-        # util.prep_dir(match_dir)
-        # util.catch_and_save_files(self.url, ["info"], match_dir)
+        match_dir = os.path.join(self.club.folder, self.league.folder, self.id)
+        util.prep_dir(match_dir)
+        util.catch_and_save_files(self.url, [self.matchId], match_dir, savenames=["info"])
 
     def info_downloaded(self):
         match_dir = os.path.join(self.club.folder, self.league.folder, self.id)
