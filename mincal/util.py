@@ -16,7 +16,7 @@ def catch_and_save_files(url, files, dir, savenames=None):
             print(f"{file} file not saved")
             continue
         savename = savenames[i] if savenames and i < len(savenames) else file
-        dump_json(dir, savename, json_data, savename)
+        dump_json(dir, savename, json_data)
         print(f"Saved file {file}")
     sniffer.destroy()
 
