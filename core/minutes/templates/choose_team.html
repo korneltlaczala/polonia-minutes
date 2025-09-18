@@ -5,7 +5,7 @@
 <body>
     <div class="container">
         <table class="team-table">
-            <th>Roczniki</th>
+            <th>Drużyny</th>
             {% for team in club.teams %}
                 <tr>
                     <td><a href="{% url 'team' team.id %}"><button>{{ team.category_age }}</button></a></td>
