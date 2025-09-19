@@ -16,7 +16,7 @@ class Club:
         self.load_players()
         for league in self.leagues:
             if active_leagues is None or len(active_leagues) == 0 or league.id in active_leagues:
-                print("Prepping stats for league:", league)
+                print("Prepping stats for league:", league, " | ", league.id)
                 league.prep_stats()
 
     def read_teams(self):
@@ -109,9 +109,14 @@ class Club:
 
     def get_players_for_team(self, team_id, active_leagues=None):
         self.folder = self.folder[(self.folder.rfind("/") + 1):]
+        team_id = int(team_id)
+
+        if active_leagues is None or len(active_leagues) == 0:
+            tempTeam = self.get_team(team_id)
+            active_leagues = [league.id for league in tempTeam.active_leagues]
+
         tempClub = Club(self.name, self.folder)
         tempClub.prep_stats(active_leagues=active_leagues)
-        team_id = int(team_id)
         team = tempClub.get_team(team_id)
         players = []
         for player in tempClub.players:
