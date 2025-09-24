@@ -5,6 +5,7 @@ table {
     padding: 1rem;
     color: white;
     border-collapse: collapse;
+    
 }
 
 table tr {
@@ -40,6 +41,14 @@ table tr button:hover {
     font-weight: 700;
 }
 
+.match-table {
+    table-layout: fixed;
+}
+
+.match-table .team-abbr {
+    display: none;
+}
+
 table .match-table-header-row th {
     text-align: center;
 }
@@ -60,19 +69,33 @@ table .match-table-row {
     height: 3rem;
 }
 
-/* table .match-table-row td {
-    display: flex;
+table .match-table-row td * {
+    vertical-align: middle;
+    display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
-} */
+    white-space: nowrap;
+}
 
-table .match-table-row td {
+table .match-table-row .logo-name-spacer {
+    width: 0.6rem;
+}
+
+table .match-table-row td:nth-child(1) {
+    text-align: right;
+}
+
+table .match-table-row td:nth-child(2) {
     text-align: center;
+    width: 2rem;
+}
+
+table .match-table-row td:nth-child(3) {
+    text-align: left;
 }
 
 table .match-table-row img {
-    height: 1.6rem;
-    width: 1.6rem;
+    height: 1.4rem;
+    width: 1.4rem;
     border-radius: 1rem;
 }
 
@@ -157,6 +180,17 @@ tr:hover .match-blob .minutes {
     user-select: none;
 } */
 
+@media (max-width: 1000px) {
+    .match-table-row p {
+        font-size: 0.8rem;
+    }
+
+    .match-table-row img {
+        height: 1rem;
+        width: 1rem;
+    }
+}
+
 @media (max-width: 730px) {
     .player-minutes-table {
         td:nth-child(5),
@@ -165,5 +199,13 @@ tr:hover .match-blob .minutes {
         th:nth-child(6) {
             display: none;
         }
+    }
+
+    .match-table .team-abbr {
+        display: inline;
+    }
+
+    .match-table .team-name {
+        display: none;
     }
 }
