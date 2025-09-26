@@ -23,6 +23,7 @@ function updateUIstats() {
                 <th>Zawodnik</th>
                 <th>Bramki</th>
                 <th>Bramki na 90'</th>
+                <th>Żółte kartki</th>
                 <!-- <th>Bramki na mecz</th> -->
             `;
             table.appendChild(headerRow);
@@ -34,6 +35,7 @@ function updateUIstats() {
                     <td><button>${player.firstname} ${player.lastname}</button></td>
                     <td><cell>${player.goal_count}</cell></td>
                     <td><cell>${player.goals_per_90}</cell></td>
+                    <td><cell>${player.yellow_cards}</cell></td>
                     <!-- <td><cell>${player.goals_per_game}</cell></td> -->
                 `;
 

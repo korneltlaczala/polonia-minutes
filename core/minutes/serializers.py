@@ -56,6 +56,7 @@ class PlayerSerializer(serializers.Serializer):
     goal_count = serializers.IntegerField()
     goals_per_90 = serializers.FloatField()
     goals_per_game = serializers.FloatField()
+    yellow_cards = serializers.IntegerField()
 
     def get_name(self, obj):
         return f"{obj.firstname} {obj.lastname}"
