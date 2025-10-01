@@ -3,44 +3,84 @@
 <div class="player-container player-container-stats"></div>
 
 <script>
+let playersData = [];  // store globally so we can sort multiple times
+let currentSort = { key: 'goal_count', order: 'desc' }; // default sort
+
+function renderTable(sortKey = 'goal_count', sortOrder = 'desc') {
+    const playerContainer = document.querySelector('.player-container-stats');
+    playerContainer.innerHTML = '';
+
+    if (!playersData || playersData.length === 0) {
+        playerContainer.innerHTML = 'No players found';
+        return;
+    }
+
+    const table = document.createElement('table');
+    table.classList.add('player-table');
+
+    // table headers with click handlers
+    const headerRow = document.createElement('tr');
+    headerRow.innerHTML = `
+        <th data-key="name">Zawodnik</th>
+        <th data-key="goal_count">Bramki</th>
+        <th data-key="goals_per_90">Bramki na 90'</th>
+        <th data-key="yellow_cards">Żółte kartki</th>
+    `;
+    table.appendChild(headerRow);
+
+    // sorting
+    playersData.sort((a, b) => {
+        let valA, valB;
+        if (sortKey === 'name') {
+            valA = `${a.firstname} ${a.lastname}`;
+            valB = `${b.firstname} ${b.lastname}`;
+        } else {
+            valA = a[sortKey];
+            valB = b[sortKey];
+        }
+
+        if (valA < valB) return sortOrder === 'asc' ? -1 : 1;
+        if (valA > valB) return sortOrder === 'asc' ? 1 : -1;
+        return 0;
+    });
+
+    // render rows
+    playersData.forEach(player => {
+        const row = document.createElement('tr');
+        row.classList.add('player-row');
+        row.innerHTML = `
+            <td><button>${player.firstname} ${player.lastname}</button></td>
+            <td><cell>${player.goal_count}</cell></td>
+            <td><cell>${player.goals_per_90}</cell></td>
+            <td><cell>${player.yellow_cards}</cell></td>
+        `;
+        table.appendChild(row);
+    });
+
+    playerContainer.appendChild(table);
+
+    // add sorting click events
+    headerRow.querySelectorAll('th').forEach(th => {
+        th.addEventListener('click', () => {
+            const key = th.dataset.key;
+            let order = 'asc';
+
+            if (currentSort.key === key && currentSort.order === 'asc') {
+                order = 'desc';
+            }
+
+            currentSort = { key, order };
+            renderTable(key, order);
+        });
+    });
+}
+
 function updateUIstats() {
     fetch('/api/team-players/?team_id=' + teamId + '&active_leagues=' + activeLeagues.join(','))
         .then(response => response.json())
         .then(data => {
-            const playerContainer = document.querySelector('.player-container-stats');
-            playerContainer.innerHTML = '';
-
-            if (! data.players || data.players.length == 0) {
-                playerContainer.innerHTML = 'No players found';
-                return;
-            }
-
-            const table = document.createElement('table');
-            table.classList.add('player-table');
-
-            const headerRow = document.createElement('tr');
-            headerRow.innerHTML = `
-                <th>Zawodnik</th>
-                <th>Bramki</th>
-                <th>Bramki na 90'</th>
-                <!-- <th>Bramki na mecz</th> -->
-            `;
-            table.appendChild(headerRow);
-
-            data.players.sort((a, b) => b.goal_count - a.goal_count);
-            data.players.forEach(player => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td><button>${player.firstname} ${player.lastname}</button></td>
-                    <td><cell>${player.goal_count}</cell></td>
-                    <td><cell>${player.goals_per_90}</cell></td>
-                    <!-- <td><cell>${player.goals_per_game}</cell></td> -->
-                `;
-
-                row.classList.add('player-row');
-                table.appendChild(row);
-            });
-            playerContainer.appendChild(table);
+            playersData = data.players || [];
+            renderTable(currentSort.key, currentSort.order);
         });
 }
 </script>

@@ -558,6 +558,10 @@ class Player:
         return 0
 
     @property
+    def yellow_cards(self):
+        return sum([app.yellow_card_count for app in self.appearances])
+        
+    @property
     def active_leagues(self):
         leagues = []
         for app in self.appearances:
@@ -627,6 +631,12 @@ class Appearance:
         if len(self.goals) == 0:
             return 0
         return len(self.goals)
+
+    @property
+    def yellow_card_count(self):
+        if len(self.cards) == 0:
+            return 0
+        return len([card for card in self.cards if card["type"].lower() == "yellow" or card["type"].lower() == "secondyellow"])
 
     @property
     def duration(self):
