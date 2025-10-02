@@ -30,6 +30,7 @@ function updateUImatches() {
                 <th>Gość</th>
                 <th>Minuty</th>
                 <th>Bramki</th>
+                <th>ŻK</th>
                 <th>Data</th>
             `;
             table.appendChild(headerRow);
@@ -45,12 +46,20 @@ function updateUImatches() {
                     <td><img class="logo" src="${match.guest_logo_url}"><div class="logo-name-spacer"></div><p class="team-abbr">${match.guest_abbreviation}</p><p class="team-name">${match.guest_name}</p></td>
                     <td><p class="duration">${appearance.duration}</p></td>
                     <td><p class="goal-count">${appearance.goal_count}</p></td>
+                    <td><p class="yc-count">${appearance.yellow_card_count}</p></td>
                     <td><p class="match-date">${new Date(match.date).toLocaleDateString('pl')}</p></td>
                 `;
                 row.classList.add('match-row');
                 if (! appearance.played) {
                     row.classList.add('not-played');
                 }
+                const minutes = appearance.duration || 0;
+                const ratio = minutes / 90;
+                const start = (appearance.minute_in - 1) / 90;
+                const hue = ratio * 120;
+                row.style.setProperty('--bar-width', (ratio * 100) + '%');
+                row.style.setProperty('--bar-start', (start * 100) + '%');
+                row.style.setProperty('--bar-color', `hsl(${hue}, 80%, 45%)`);
                 table.appendChild(row);
             });
 

@@ -48,8 +48,9 @@ function renderTable(sortKey = 'goal_count', sortOrder = 'desc') {
     playersData.forEach(player => {
         const row = document.createElement('tr');
         row.classList.add('player-row');
+        const playerUrl = "{% url 'player' 'PLAYER_ID' %}".replace('PLAYER_ID', player.id);
         row.innerHTML = `
-            <td><button>${player.firstname} ${player.lastname}</button></td>
+            <td><a href="${playerUrl}"><button>${player.firstname} ${player.lastname}</button></a></td>
             <td><cell>${player.goal_count}</cell></td>
             <td><cell>${player.goals_per_90}</cell></td>
             <td><cell>${player.yellow_cards}</cell></td>

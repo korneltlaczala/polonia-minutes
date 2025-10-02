@@ -54,7 +54,7 @@ function updateUIminutes() {
                 })
                 const playerUrl = "{% url 'player' 'PLAYER_ID' %}".replace('PLAYER_ID', player.id);
                 row.innerHTML = `
-                    <td><a href="${playerUrl.replace('PLAYER_ID', player.id)}"><button>${player.firstname} ${player.lastname}</button></a></td>
+                    <td><a href="${playerUrl}"><button>${player.firstname} ${player.lastname}</button></a></td>
                     <td><cell>${player.minutes}'</cell></td>
                     <td><cell>${player.minutes_per_game}'</cell></td>
                     <td><cell>${player.apps}</cell></td>

@@ -61,6 +61,32 @@ table tr button:hover {
     background-color: rgba(201, 0, 0, 0.12);
 }
 
+.match-row:hover {
+    cursor: pointer;
+}
+
+.match-feed .match-row {
+    position: relative;
+}
+
+.match-feed .match-row::after {
+    content: "";
+    position: absolute;
+    left: var(--bar-start, 0%);
+    bottom: 0;
+    height: 100%;
+    width: var(--bar-width, 0%);
+    background-color: var(--bar-color, transparent);
+    opacity: 0.2;
+    transition: all 0.2s ease;
+    /* transition: width 0.4s ease, background-color 0.4s ease, height 0.1s ease; */
+}
+
+.match-feed .match-row:hover::after {
+    height: 4px;
+    opacity: 0.6;
+}
+
 table .match-table-header-row th {
     text-align: center;
 }
@@ -180,7 +206,8 @@ table cell {
 
 table .duration,
 table .goal-count,
-table .match-date {
+table .match-date,
+table .yc-count {
     font-weight: 600;
     font-size: 0.8rem;
 }
@@ -198,6 +225,10 @@ tr:hover .match-blob .minutes {
     cursor: pointer;
     user-select: none;
 } */
+
+.match-feed td {
+    text-align: center;
+}
 
 @media (max-width: 1000px) {
     .match-table-row p {
