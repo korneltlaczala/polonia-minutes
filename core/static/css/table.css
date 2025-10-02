@@ -170,6 +170,13 @@ table cell {
     border-radius: 1rem;
 }
 
+table .duration,
+table .goal-count {
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
 tr:hover .match-blob {
     background-color: rgb(80, 80, 80);
 }

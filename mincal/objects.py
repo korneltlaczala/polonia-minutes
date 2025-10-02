@@ -150,6 +150,23 @@ class Club:
         team = tempClub.get_team(team_id)
         return team.matches
 
+    def get_appearances_for_player(self, player_id, active_leagues=None):
+        self.folder = self.folder[(self.folder.rfind("/") + 1):]
+        player_id = str(player_id)
+
+        if active_leagues is None or len(active_leagues) == 0:
+            player = self.get_player(player_id)
+            if player is None:
+                return []
+            active_leagues = [league.id for league in player.active_leagues]
+
+        tempClub = Club(self.name, self.folder)
+        tempClub.prep_stats(active_leagues=active_leagues)
+        player = tempClub.get_player(player_id)
+        if player is None:
+            return []
+        return player.appearances
+
     def __str__(self):
         output = ""
         for team in self.teams:

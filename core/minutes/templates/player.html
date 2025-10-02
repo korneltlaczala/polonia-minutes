@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<body>
+
+    <div class="card container header-card">
+
+        <div class="nav-link">
+            <a href="{% url 'choose_team' %}"><i class="fas fa-arrow-circle-left"></i> Wybór drużyny</a>
+        </div>
+
+        <div class="title-container">
+            <div class="title">
+                <h1>{{ player.firstname }} {{ player.lastname }}</h1>
+            </div>
+            <div class="league-choice-container">
+                <div>
+                    <h3>Statystyki dla</h3>
+                </div>
+                <div class="button-container">
+                    <button class="state-button group-leader" onclick="selectAllLeagues(this)">Wszystkie ligi</button>
+                    {% for league in player.leagues %}
+                        <button class="state-button" onclick="selectLeague('{{ league.id }}', this)">{{ league }}</button>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-choice-container">
+            <ul>
+                <!-- <button class="tab-button" onclick="selectTab(this, 'tab-minutes')">Minuty</button> -->
+                <button class="tab-button" onclick="selectTab(this, 'tab-matches')">Mecze</button>
+                <!-- <button class="tab-button" onclick="selectTab(this, 'tab-stats')">Statystyki</button> -->
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="tab-containers container">
+        <!-- <div class="tab-container tab-minutes">
+            {% include 'team_minutes.html' %}
+        </div> -->
+        <div class="tab-container tab-matches">
+            {% include 'player_matches.html' %}
+        </div>
+        <!-- <div class="tab-container tab-stats">
+            {% include 'team_stats.html' %}
+        </div> -->
+    </div>
+
+    <script>
+
+        activeLeagues = [];
+        playerId = "{{ player.id }}";
+
+        function selectAllLeagues(buttonEl) {
+            if (buttonEl.classList.contains('state-button-active')) {
+                document.querySelectorAll('.league-choice-container .state-button:not(.group-leader)').forEach(btn => {
+                    btn.click();
+                });
+                updateUI();
+                return;
+            }
+            document.querySelectorAll('.league-choice-container .state-button').forEach(btn => btn.classList.remove('state-button-active'));
+            buttonEl.classList.add('state-button-active')
+            activeLeagues = [];
+            updateUI();
+        }
+
+        function selectLeague(leagueId, buttonEl) {
+            if (buttonEl.classList.contains('state-button-active')) {
+                buttonEl.classList.remove('state-button-active');
+                activeLeagues.splice(activeLeagues.indexOf(leagueId), 1);
+                
+                anyLeagueSelected = false;
+                document.querySelectorAll('.league-choice-container .state-button').forEach(btn => {
+                    if (btn.classList.contains('state-button-active')) {
+                        anyLeagueSelected = true;
+                    }
+                });
+                if (! anyLeagueSelected) {
+                    leaderButton = document.querySelector('.league-choice-container .group-leader');
+                    selectAllLeagues(leaderButton);
+                }
+                updateUI();
+                return;
+            }
+            document.querySelectorAll('.league-choice-container .group-leader').forEach(btn => btn.classList.remove('state-button-active'));
+            buttonEl.classList.add('state-button-active')
+            activeLeagues.push(leagueId);
+            updateUI();
+        }
+
+        function selectTab(buttonEl, tabName) {
+            console.log('selectTab', buttonEl, tabName);
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('tab-button-active'));
+            buttonEl.classList.add('tab-button-active');
+
+            document.querySelectorAll('.tab-container').forEach(container => container.classList.remove('tab-container-active'));
+            document.querySelector('.' + tabName).classList.add('tab-container-active');
+        }
+
+        const initialButton = document.querySelector('.league-choice-container button:first-child');
+        initialButton.click();
+
+        function updateUI() {
+            // updateUIminutes();
+            updateUImatches();
+            // updateUIstats();
+        }
+
+        initial_tab_name = 'tab-matches';
+        initial_tab_button = document.querySelector('.tab-button[onclick*="' + initial_tab_name + '"]');
+        initial_tab_button.click();
+    </script>
+    
+</body>
+{% endblock content %}

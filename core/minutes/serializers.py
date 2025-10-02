@@ -37,12 +37,13 @@ class MatchSerializer(serializers.Serializer):
         return dt.day
 
 
-class ApearanceSerializer(serializers.Serializer):
+class AppearanceSerializer(serializers.Serializer):
     match = MatchSerializer()
     duration = serializers.IntegerField()
     minute_in = serializers.IntegerField()
     minute_out = serializers.IntegerField()
-
+    goal_count = serializers.IntegerField()
+    yellow_card_count = serializers.IntegerField()
     
 class PlayerSerializer(serializers.Serializer):
     id = serializers.CharField()
@@ -52,7 +53,7 @@ class PlayerSerializer(serializers.Serializer):
     minutes_per_game = serializers.IntegerField()
     apps = serializers.IntegerField()
     callings = serializers.IntegerField()
-    appearances = ApearanceSerializer(many=True)
+    appearances = AppearanceSerializer(many=True)
     goal_count = serializers.IntegerField()
     goals_per_90 = serializers.FloatField()
     goals_per_game = serializers.FloatField()
