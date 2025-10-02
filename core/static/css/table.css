@@ -53,6 +53,14 @@ table tr button:hover {
     display: none;
 }
 
+.match-feed .team-abbr {
+    display: none;
+}
+
+.match-feed .not-played {
+    background-color: rgba(201, 0, 0, 0.12);
+}
+
 table .match-table-header-row th {
     text-align: center;
 }
@@ -171,8 +179,8 @@ table cell {
 }
 
 table .duration,
-table .goal-count {
-    text-align: center;
+table .goal-count,
+table .match-date {
     font-weight: 600;
     font-size: 0.8rem;
 }
@@ -199,6 +207,13 @@ tr:hover .match-blob .minutes {
     .match-table-row img {
         height: 1rem;
         width: 1rem;
+    }
+
+    .match-feed .team-abbr {
+        display: inline;
+    }
+    .match-feed .team-name {
+        display: none;
     }
 }
 

@@ -158,7 +158,7 @@ class Club:
             player = self.get_player(player_id)
             if player is None:
                 return []
-            active_leagues = [league.id for league in player.active_leagues]
+            active_leagues = [league.id for league in player.leagues]
 
         tempClub = Club(self.name, self.folder)
         tempClub.prep_stats(active_leagues=active_leagues)

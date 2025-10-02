@@ -11,7 +11,7 @@ function updateUImatches() {
             matchContainer.innerHTML = '';
 
             if (! data.played_matches || data.played_matches.length == 0) {
-                matchContainer.innerHTML = 'No matches found';
+                matchContainer.innerHTML = '<p class="no-data">No matches found</p>';
                 return;
             }
 

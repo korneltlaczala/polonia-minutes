@@ -76,5 +76,4 @@ def player_matches_api(request):
     print(f"Active leagues: {active_leagues}")
     appearances = club.get_appearances_for_player(player_id, active_leagues)
     serializer = AppearanceSerializer(appearances, many=True)
-    print(serializer.data[0])
     return Response({"appearances": serializer.data})

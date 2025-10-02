@@ -188,6 +188,27 @@ a:hover button {
     display: block;
 }
 
+.back-button {
+    background-color: transparent;
+    border: none;
+    color: #aaa;
+    font-size: 1rem;
+    transition: all 0.1s ease-in-out;
+    padding: 0;
+}
+
+.back-button:hover {
+    color: #c90000;
+    cursor: pointer;
+}
+
+.no-data {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #777;
+    padding: 2rem 0;
+}
+
 @media (max-width: 600px) {
     .container {
         width: 100%;
