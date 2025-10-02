@@ -57,19 +57,31 @@ table tr button:hover {
     display: none;
 }
 
-.match-feed .not-played {
+/* .match-feed .not-played {
     background-color: rgba(201, 0, 0, 0.12);
+} */
+
+.match-feed .match-row {
+    position: relative;
 }
 
 .match-row:hover {
     cursor: pointer;
 }
 
-.match-feed .match-row {
-    position: relative;
+.match-feed .match-row.not-played::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(201, 0, 0);
+    opacity: 0.12;
+    transition: all 0.2s ease;
 }
 
-.match-feed .match-row::after {
+.match-feed .match-row.played::after {
     content: "";
     position: absolute;
     left: var(--bar-start, 0%);
@@ -79,7 +91,6 @@ table tr button:hover {
     background-color: var(--bar-color, transparent);
     opacity: 0.2;
     transition: all 0.2s ease;
-    /* transition: width 0.4s ease, background-color 0.4s ease, height 0.1s ease; */
 }
 
 .match-feed .match-row:hover::after {

@@ -53,6 +53,9 @@ function updateUImatches() {
                 if (! appearance.played) {
                     row.classList.add('not-played');
                 }
+                else {
+                    row.classList.add('played');
+                }
                 const minutes = appearance.duration || 0;
                 const ratio = minutes / 90;
                 const start = (appearance.minute_in - 1) / 90;
