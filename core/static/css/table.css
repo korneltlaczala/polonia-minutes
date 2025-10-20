@@ -53,7 +53,7 @@ table tr button:hover {
     display: none;
 }
 
-.match-feed .team-abbr {
+.match-feed .team-name {
     display: none;
 }
 
@@ -215,12 +215,15 @@ table cell {
     border-radius: 1rem;
 }
 
+table .league-name,
+table .match-score,
 table .duration,
 table .goal-count,
 table .match-date,
 table .yc-count {
     font-weight: 600;
     font-size: 0.8rem;
+    text-align: center;
 }
 
 tr:hover .match-blob {
@@ -239,6 +242,19 @@ tr:hover .match-blob .minutes {
 
 .match-feed td {
     text-align: center;
+}
+
+.match-feed .match-table-row td:nth-child(3) {
+    text-align: center;
+}
+
+.match-feed td:has(.league-name) {
+    padding-right: 3rem;
+}
+.match-feed .league-name {
+    border: solid 3px rgba(74, 74, 74, 0.6);
+    padding: 0.3rem 0.8rem;
+    border-radius: 0.5rem;
 }
 
 @media (max-width: 1000px) {

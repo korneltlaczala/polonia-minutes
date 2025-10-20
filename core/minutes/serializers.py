@@ -2,7 +2,7 @@ from rest_framework import serializers
 from datetime import datetime
 
 class MatchSerializer(serializers.Serializer):
-    # league = serializers.CharField(source="league.name")
+    league_name = serializers.CharField(source="league.name")
     score = serializers.CharField(source="scores.final")
     host_logo_url = serializers.CharField(source="host.logo")
     guest_logo_url = serializers.CharField(source="guest.logo")
