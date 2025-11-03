@@ -362,7 +362,7 @@ class League:
         print(f"Fetching match data for league {self}...")
         print(f"="*60)
         for match in self.played_matches:
-            if not match.events_downloaded() or force:
+            if match.download_needed() or force:
                 match.download_events()
             else: 
                 print(f"Results for {match} already downloaded\t file size: {match.events_file_size} bytes")
@@ -459,6 +459,9 @@ class Match:
         if not self.events_downloaded():
             return 0
         return os.path.getsize(os.path.join(match_dir, "events.json"))
+
+    def download_needed(self):
+        return self.events_file_size < 5000
 
     def load_events(self):
         match_dir = os.path.join(self.club.folder, self.league.folder, self.id)
