@@ -327,13 +327,20 @@ class League:
             player.show_minutes()
 
     def download_matches(self, only_new_leagues=False):
+        print(f"="*40)
+        print(f"="*40)
         if only_new_leagues and (self.played_matches_downloaded() and self.not_played_matches_downloaded()):
             print(f"Matches already downloaded for {self}")
+            print(f"="*40)
             return
 
         dir = os.path.join(self.club.folder, self.folder)
         util.prep_dir(dir)
-        util.catch_and_save_files(self.url, ["played-matches", "not-played-matches"], dir)
+        print(f"Downloading matches for {self}...")
+        print(f"from {self.url}")
+        print(f"="*40)
+        # util.catch_and_save_files(self.url, ["played-matches", "not-played-matches"], dir)
+        util.catch_and_save_files_playwright(self.url, ["played-matches", "not-played-matches"], dir)
         self.repair_matches()
 
     def download_players(self, force=False):
