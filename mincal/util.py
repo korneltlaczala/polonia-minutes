@@ -45,7 +45,21 @@ def catch_and_save_files_playwright(url, files, dir, savenames=None):
             headless=False,
             args=["--disable-blink-features=AutomationControlled"]
         )
-        page = browser.new_page()
+
+        USER_AGENTS = [
+            # "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122 Safari/537.36",          # Ten jest do dupy, działa tylko czasem
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15" # Ten działa chyba zawsze
+        ]
+        user_agent = random.choice(USER_AGENTS)
+
+
+        context = browser.new_context(
+            user_agent=user_agent,
+            viewport={"width": random.randint(1200, 1920), "height": random.randint(700, 1080)},
+            locale=random.choice(["en-US", "pl-PL"]),
+            timezone_id=random.choice(["Europe/Warsaw", "Europe/Berlin"]),
+        )
+        page = context.new_page()
 
         def on_response(response):
             req = response.request
@@ -60,7 +74,7 @@ def catch_and_save_files_playwright(url, files, dir, savenames=None):
                 saved_files[files.index(file_name)] = True
                 
         page.on("response", on_response)
-        time.sleep(random.uniform(0.6, 0.8))
+        time.sleep(random.uniform(1.6, 2.8))
         page.mouse.move(random.randint(0, 800), random.randint(0, 600))
         time.sleep(random.uniform(0.4, 0.6))
         page.goto(
@@ -70,10 +84,11 @@ def catch_and_save_files_playwright(url, files, dir, savenames=None):
         browser.close()
 
         print("Connection closed.")
+        # print("user agent:", user_agent)
         if all(saved_files):
-            print("All files saved successfully.")
+            print("✅ All files saved successfully.")
             return
-        print("Failed to save files:")
+        print("❌ Failed to save files:")
         for i, saved in enumerate(saved_files):
             if not saved:
                 print(f" - {files[i]}")

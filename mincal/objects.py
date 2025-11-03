@@ -327,39 +327,45 @@ class League:
             player.show_minutes()
 
     def download_matches(self, only_new_leagues=False):
-        print(f"="*40)
-        print(f"="*40)
         if only_new_leagues and (self.played_matches_downloaded() and self.not_played_matches_downloaded()):
+            print(f"="*60)
             print(f"Matches already downloaded for {self}")
-            print(f"="*40)
+            print(f"="*60)
             return
 
         dir = os.path.join(self.club.folder, self.folder)
         util.prep_dir(dir)
+        print(f"="*60)
         print(f"Downloading matches for {self}...")
         print(f"from {self.url}")
-        print(f"="*40)
+        print(f"="*60)
         # util.catch_and_save_files(self.url, ["played-matches", "not-played-matches"], dir)
         util.catch_and_save_files_playwright(self.url, ["played-matches", "not-played-matches"], dir)
         self.repair_matches()
 
     def download_players(self, force=False):
+        print(f"="*60)
         if self.players_downloaded() and not force:
             print(f"Players already downloaded for {self}")
             return
-        print(f"Downloading players for {self}...")
+
         dir = os.path.join(self.club.folder, self.folder)
         util.prep_dir(dir)
-        util.catch_and_save_files(self.url, ["players"], dir)
+        print(f"Downloading players for {self}...")
+        print(f"from {self.url}")
+        # util.catch_and_save_files(self.url, ["players"], dir)
+        util.catch_and_save_files_playwright(self.url, ["players"], dir)
 
     def download_match_data(self, force=False):
         self.load_matches()
+        print(f"="*60)
+        print(f"Fetching match data for league {self}...")
+        print(f"="*60)
         for match in self.played_matches:
             if not match.events_downloaded() or force:
-                print(f"Downloading events for {match}")
                 match.download_events()
             else: 
-                print(f"Results for {match} already downloaded\t file size: {5}")
+                print(f"Results for {match} already downloaded\t file size: {match.events_file_size} bytes")
             # if not match.info_downloaded() or force:
             #     print(f"Downloading info for {match}")
             #     match.download_info()
@@ -495,8 +501,8 @@ class Match:
         print(f"from {self.url}")
         match_dir = os.path.join(self.club.folder, self.league.folder, self.id)
         util.prep_dir(match_dir)
-        print(type(self.matchId))
-        util.catch_and_save_files(self.url, ["events"], match_dir)
+        # util.catch_and_save_files(self.url, ["events"], match_dir)
+        util.catch_and_save_files_playwright(self.url, ["events"], match_dir)
 
     def download_info(self):
         print(f"Downloading info for {self}")
@@ -504,7 +510,8 @@ class Match:
         print(f"Match ID: {self.matchId}")
         match_dir = os.path.join(self.club.folder, self.league.folder, self.id)
         util.prep_dir(match_dir)
-        util.catch_and_save_files(self.url, [self.matchId], match_dir, savenames=["info"])
+        # util.catch_and_save_files(self.url, [self.matchId], match_dir, savenames=["info"])
+        util.catch_and_save_files_playwright(self.url, [self.matchId], match_dir, savenames=["info"])
 
     def info_downloaded(self):
         match_dir = os.path.join(self.club.folder, self.league.folder, self.id)
