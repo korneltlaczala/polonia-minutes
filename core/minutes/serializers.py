@@ -4,12 +4,29 @@ from datetime import datetime
 class MatchSerializer(serializers.Serializer):
     league_name = serializers.CharField(source="league.name")
     score = serializers.CharField(source="scores.final")
-    host_logo_url = serializers.CharField(source="host.logo")
-    guest_logo_url = serializers.CharField(source="guest.logo")
+
+    # host_logo_url = serializers.CharField(source="host.logo")
+    # guest_logo_url = serializers.CharField(source="guest.logo")
+    host_logo_url = serializers.SerializerMethodField()
+    guest_logo_url = serializers.SerializerMethodField()
+    FALLBACK_LOGO_URL = "https://www.laczynaspilka.pl/rozgrywki/assets/icons/crest_default.svg"
+
     host_name = serializers.CharField(source="host.name")
     guest_name = serializers.CharField(source="guest.name")
     host_abbreviation = serializers.CharField(source="host.abbreviation")
     guest_abbreviation = serializers.CharField(source="guest.abbreviation")
+
+    def get_host_logo_url(self, obj):
+        try:
+            return obj.host["logo"]
+        except (KeyError, TypeError):
+            return self.FALLBACK_LOGO_URL
+
+    def get_guest_logo_url(self, obj):
+        try:
+            return obj.guest["logo"]
+        except (KeyError, TypeError):
+            return self.FALLBACK_LOGO_URL
 
     date = serializers.SerializerMethodField()
     year = serializers.SerializerMethodField()
