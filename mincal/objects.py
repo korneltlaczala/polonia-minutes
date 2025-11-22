@@ -338,7 +338,7 @@ class League:
         print(f"="*60)
         print(f"Downloading matches for {self}...")
         print(f"from {self.url}")
-        print(f"="*60)
+        # print(f"="*60)
         # util.catch_and_save_files(self.url, ["played-matches", "not-played-matches"], dir)
         util.catch_and_save_files_playwright(self.url, ["played-matches", "not-played-matches"], dir)
         self.repair_matches()
