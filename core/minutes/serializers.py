@@ -15,6 +15,7 @@ class MatchSerializer(serializers.Serializer):
     guest_name = serializers.CharField(source="guest.name")
     host_abbreviation = serializers.CharField(source="host.abbreviation")
     guest_abbreviation = serializers.CharField(source="guest.abbreviation")
+    is_home_match = serializers.BooleanField()
 
     def get_host_logo_url(self, obj):
         try:

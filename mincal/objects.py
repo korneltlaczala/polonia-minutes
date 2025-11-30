@@ -468,6 +468,9 @@ class Match:
         with open(os.path.join(match_dir, "events.json"), "r", encoding="utf-8") as f:
             self.events = json.load(f)
 
+    def is_home_match(self):
+        return self.host["abbreviation"] == "POL"
+
     def prep_stats(self):
         if not self.events_downloaded():
             return

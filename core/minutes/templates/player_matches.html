@@ -93,20 +93,43 @@
         const downloadButton = document.createElement("button");
         downloadButton.textContent = "Download CSV";
         downloadButton.classList.add("download-csv");
+
         downloadButton.addEventListener("click", () => {
-          const header = "Liga,Gospodarz,Wynik,Gość,Minuty,Bramki,ŻK,Data\n";
+          const header =
+            "rozgrywki,rywale / data,minuty,bramki/asysty,kluczowe podania / interwencje\n";
 
           const rows = data.appearances.map((appearance) => {
             const match = appearance.match;
+
+            const league = match.league_name;
+            console.log(match.is_home_match);
+            const opponent = match.is_home_match
+              ? match.guest_name
+              : match.host_name;
+
+            const date = new Date(match.date).toLocaleDateString("pl", {
+              day: "2-digit",
+              month: "2-digit",
+            });
+
+            const opponentWithDate = `${opponent} / ${date}`;
+
+            const minutes = appearance.duration;
+
+            const goals = appearance.goal_count;
+            const assists = appearance.assist_count ?? "-"; // fallback
+            const goalsAssists = `${goals}/${assists}`;
+
+            const keyPasses = appearance.key_pass_count ?? "-";
+            const interventions = appearance.intervention_count ?? "-";
+            const passesInterventions = `${keyPasses}/${interventions}`;
+
             return [
-              match.league_name,
-              match.host_name,
-              match.score,
-              match.guest_name,
-              appearance.duration,
-              appearance.goal_count,
-              appearance.yellow_card_count,
-              new Date(match.date).toLocaleDateString("pl"),
+              league,
+              opponentWithDate,
+              minutes,
+              goalsAssists,
+              passesInterventions,
             ].join(",");
           });
 
@@ -119,7 +142,7 @@
 
           const link = document.createElement("a");
           link.href = url;
-          link.download = "player_matches.csv";
+          link.download = "player_stats.csv";
           link.click();
 
           URL.revokeObjectURL(url);
