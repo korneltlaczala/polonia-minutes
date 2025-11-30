@@ -3,28 +3,33 @@
 <div class="match-container"></div>
 
 <script>
-function updateUImatches() {
-    fetch('/api/player-matches/?player_id=' + playerId + '&active_leagues=' + activeLeagues.join(','))
-        .then(response => response.json())
-        .then(data => {
-            const matchContainer = document.querySelector('.match-container');
-            matchContainer.innerHTML = '';
+  function updateUImatches() {
+    fetch(
+      "/api/player-matches/?player_id=" +
+        playerId +
+        "&active_leagues=" +
+        activeLeagues.join(",")
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        const matchContainer = document.querySelector(".match-container");
+        matchContainer.innerHTML = "";
 
-            if (! data.appearances || data.appearances.length == 0) {
-                matchContainer.innerHTML = '<p class="no-data">No matches found</p>';
-                return;
-            }
+        if (!data.appearances || data.appearances.length == 0) {
+          matchContainer.innerHTML = '<p class="no-data">No matches found</p>';
+          return;
+        }
 
-            //const matchFeed = document.createElement('div');
-            //matchFeed.classList.add('match-feed');
-            //matchContainer.appendChild(matchFeed);
+        //const matchFeed = document.createElement('div');
+        //matchFeed.classList.add('match-feed');
+        //matchContainer.appendChild(matchFeed);
 
-            const table = document.createElement('table');
-            table.classList.add('match-feed');
+        const table = document.createElement("table");
+        table.classList.add("match-feed");
 
-            const headerRow = document.createElement('tr');
-            headerRow.classList.add('match-table-header-row');
-            headerRow.innerHTML = `
+        const headerRow = document.createElement("tr");
+        headerRow.classList.add("match-table-header-row");
+        headerRow.innerHTML = `
                 <th>Liga</th>
                 <th>Gospodarz</th>
                 <th>Wynik</th>
@@ -34,41 +39,93 @@ function updateUImatches() {
                 <th>ŻK</th>
                 <th>Data</th>
             `;
-            table.appendChild(headerRow);
+        table.appendChild(headerRow);
 
-            data.appearances.sort((a, b) => b.date - a.date);
-            data.appearances.forEach(appearance => {
-                const match = appearance.match;
-                const row = document.createElement('tr');
-                row.classList.add('match-table-row');
-                row.innerHTML = `
+        data.appearances.sort((a, b) => b.date - a.date);
+        data.appearances.forEach((appearance) => {
+          const match = appearance.match;
+          const row = document.createElement("tr");
+          row.classList.add("match-table-row");
+          row.innerHTML = `
                     <td><p class="league-name">${match.league_name}</p></td>
-                    <td><p class="team-abbr">${match.host_abbreviation}</p><p class="team-name">${match.host_name}</p><div class="logo-name-spacer"></div><img class="logo" src="${match.host_logo_url}"></td>
-                    <td><div class="match-score"><p>${match.score}</p></div></td>
-                    <td><img class="logo" src="${match.guest_logo_url}"><div class="logo-name-spacer"></div><p class="team-abbr">${match.guest_abbreviation}</p><p class="team-name">${match.guest_name}</p></td>
+                    <td><p class="team-abbr">${
+                      match.host_abbreviation
+                    }</p><p class="team-name">${
+            match.host_name
+          }</p><div class="logo-name-spacer"></div><img class="logo" src="${
+            match.host_logo_url
+          }"></td>
+                    <td><div class="match-score"><p>${
+                      match.score
+                    }</p></div></td>
+                    <td><img class="logo" src="${
+                      match.guest_logo_url
+                    }"><div class="logo-name-spacer"></div><p class="team-abbr">${
+            match.guest_abbreviation
+          }</p><p class="team-name">${match.guest_name}</p></td>
                     <td><p class="duration">${appearance.duration}</p></td>
                     <td><p class="goal-count">${appearance.goal_count}</p></td>
-                    <td><p class="yc-count">${appearance.yellow_card_count}</p></td>
-                    <td><p class="match-date">${new Date(match.date).toLocaleDateString('pl')}</p></td>
+                    <td><p class="yc-count">${
+                      appearance.yellow_card_count
+                    }</p></td>
+                    <td><p class="match-date">${new Date(
+                      match.date
+                    ).toLocaleDateString("pl")}</p></td>
                 `;
-                row.classList.add('match-row');
-                if (! appearance.played) {
-                    row.classList.add('not-played');
-                }
-                else {
-                    row.classList.add('played');
-                }
-                const minutes = appearance.duration || 0;
-                const ratio = minutes / 90;
-                const start = (appearance.minute_in - 1) / 90;
-                const hue = ratio * 120;
-                row.style.setProperty('--bar-width', (ratio * 100) + '%');
-                row.style.setProperty('--bar-start', (start * 100) + '%');
-                row.style.setProperty('--bar-color', `hsl(${hue}, 80%, 45%)`);
-                table.appendChild(row);
-            });
+          row.classList.add("match-row");
+          if (!appearance.played) {
+            row.classList.add("not-played");
+          } else {
+            row.classList.add("played");
+          }
+          const minutes = appearance.duration || 0;
+          const ratio = minutes / 90;
+          const start = (appearance.minute_in - 1) / 90;
+          const hue = ratio * 120;
+          row.style.setProperty("--bar-width", ratio * 100 + "%");
+          row.style.setProperty("--bar-start", start * 100 + "%");
+          row.style.setProperty("--bar-color", `hsl(${hue}, 80%, 45%)`);
+          table.appendChild(row);
+        });
 
-            matchContainer.appendChild(table);
-        })
-}
+        matchContainer.appendChild(table);
+
+        const downloadButton = document.createElement("button");
+        downloadButton.textContent = "Download CSV";
+        downloadButton.classList.add("download-csv");
+        downloadButton.addEventListener("click", () => {
+          const header = "Liga,Gospodarz,Wynik,Gość,Minuty,Bramki,ŻK,Data\n";
+
+          const rows = data.appearances.map((appearance) => {
+            const match = appearance.match;
+            return [
+              match.league_name,
+              match.host_name,
+              match.score,
+              match.guest_name,
+              appearance.duration,
+              appearance.goal_count,
+              appearance.yellow_card_count,
+              new Date(match.date).toLocaleDateString("pl"),
+            ].join(",");
+          });
+
+          const csv = header + rows.join("\n");
+
+          const blob = new Blob(["\uFEFF" + csv], {
+            type: "text/csv;charset=utf-8",
+          });
+          const url = URL.createObjectURL(blob);
+
+          const link = document.createElement("a");
+          link.href = url;
+          link.download = "player_matches.csv";
+          link.click();
+
+          URL.revokeObjectURL(url);
+        });
+
+        matchContainer.appendChild(downloadButton);
+      });
+  }
 </script>
