@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+   web:
+      build: .
+      container_name: polonia_minutes_app
+      restart: always
+      ports: 
+      - "8000:8000"
+      volumes:
+      - ./data:/app/data
+      - ./core/db.sqlite3:/app/core/db.sqlite3
