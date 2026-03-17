@@ -255,6 +255,7 @@ class League:
         self.load_played_matches()
         for match in self.played_matches:
             match.prep_stats()
+            print(match.duration)
 
     def read_players(self):
         dir = os.path.join(self.club.folder, self.folder)
@@ -448,6 +449,7 @@ class Match:
         self.play = play
 
         self.events = None
+        self.duration = None
 
     def events_downloaded(self):
         match_dir = os.path.join(self.club.folder, self.league.folder, self.id)
@@ -476,6 +478,12 @@ class Match:
             return
 
         self.load_events()
+
+        self.duration = 90
+        for child in self.events["events"]:
+            if child["header"] == "Dogrywka":
+                self.duration = 120
+
         if self.host["abbreviation"] == "POL":
             players = self.events["host"]["squad"]
         else:
@@ -501,6 +509,9 @@ class Match:
             except:
                 print(f"Error adding appearance to {p}")
                 print(player)
+
+
+
 
     def download_events(self):
         print(f"Downloading events for {self}")
@@ -643,8 +654,12 @@ class Appearance:
         self.process()
 
     def process(self):
+        match_duration = self.match.duration if self.match.duration is not None else 90
         self.minute_in = 1
-        self.minute_out = 90
+        self.minute_out = match_duration
+        if self.league.id == "puchar_polski":
+            print(match_duration)
+        
 
         for substitution in self.substitutions:
             minute_data = substitution["minute"].split("'")
@@ -661,7 +676,7 @@ class Appearance:
 
         if self.app_type == "Substitute" and len(self.substitutions) == 0:
             self.played = False
-            self.minute_in = 91
+            self.minute_in = match_duration+1
 
     @property
     def goal_count(self):
@@ -677,6 +692,8 @@ class Appearance:
 
     @property
     def duration(self):
+        if self.played == False:
+            return 0
         return self.minute_out - self.minute_in + 1
 
     def __str__(self):
