@@ -255,7 +255,6 @@ class League:
         self.load_played_matches()
         for match in self.played_matches:
             match.prep_stats()
-            print(match.duration)
 
     def read_players(self):
         dir = os.path.join(self.club.folder, self.folder)
@@ -657,8 +656,6 @@ class Appearance:
         match_duration = self.match.duration if self.match.duration is not None else 90
         self.minute_in = 1
         self.minute_out = match_duration
-        if self.league.id == "puchar_polski":
-            print(match_duration)
         
 
         for substitution in self.substitutions:
