@@ -73,10 +73,11 @@ def catch_and_save_files_playwright(url, files, dir, savenames=None):
                 print(f"\tSaved file {file_name}")
                 saved_files[files.index(file_name)] = True
                 
+        t = 3   # time factor
         page.on("response", on_response)
-        time.sleep(random.uniform(1.6, 2.8))
+        time.sleep(random.uniform(t - t/4, t + t/4))
         page.mouse.move(random.randint(0, 800), random.randint(0, 600))
-        time.sleep(random.uniform(0.4, 0.6))
+        time.sleep(random.uniform(t/2 - t/4, t/2 + t/4))
         page.goto(
             url,
             wait_until="networkidle"
