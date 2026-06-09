@@ -1,3 +1,4 @@
+import pandas as pd
 import copy
 import datetime
 import os
@@ -630,6 +631,22 @@ class Player:
 
     def belongs_to_team(self, team):
         return team in [league.team for league in self.leagues]
+
+    def get_leagues(self):
+        """Zwraca listę unikalnych nazw lig, w których zawodnik ma jakiekolwiek występy/powołania."""
+        return list(set(app.match.league for app in self.appearances))
+
+    def minutes_by_league(self, league_name):
+        """Zwraca sumę minut rozegranych przez zawodnika w konkretnej lidze."""
+        return sum([app.duration for app in self.appearances if app.played and app.match.league == league_name])
+
+    def apps_by_league(self, league_name):
+        """Zwraca liczbę rozegranych meczów (apps) w konkretnej lidze."""
+        return len([app for app in self.appearances if app.played and app.match.league == league_name])
+
+    def callings_by_league(self, league_name):
+        """Zwraca liczbę powołań (w kadrze meczowej) w konkretnej lidze."""
+        return len([app for app in self.appearances if app.match.league == league_name])
 
     def __str__(self):
         return f"{self.firstname + ' ' + self.lastname:<25}"
