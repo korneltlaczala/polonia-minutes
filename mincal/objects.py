@@ -301,15 +301,15 @@ class League:
         for match in match_list:
             match_object_list.append(Match(self.club,
                                           self,
-                                          match["matchId"],
-                                          match["state"],
-                                          match["dateTime"],
-                                          match["canDateTimeChange"],
-                                          match["scores"],
-                                          match["host"],
-                                          match["guest"],
-                                          match["league"],
-                                          match["play"]))
+                                          match.get("matchId", ""),
+                                          match.get("state", ""),
+                                          match.get("dateTime", ""),
+                                          match.get("canDateTimeChange", False),
+                                          match.get("scores", {}),
+                                          match.get("host", {}),
+                                          match.get("guest", {}),
+                                          match.get("league", {}),
+                                          match.get("play", {})))
 
     def show_matches(self):
         print(f"Played matches:")
@@ -368,7 +368,7 @@ class League:
     def download_match_data(self, force=False):
         self.load_matches()
         print(f"="*60)
-        print(f"Fetching match data for league {self}...")
+        print(f"Fetching match data for league {self.folder}...")
         print(f"="*60)
         for match in self.played_matches:
             if match.download_needed() or force:
