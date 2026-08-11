@@ -1,8 +1,30 @@
 {% load static %}
 <link rel="stylesheet" href="{% static '/css/navbar.css' %}">
 <nav>
-    <img class="team-logo" src="https://kspolonia.pl/wp-content/themes/skela/static/img/new_logo_border.svg" width="100" height="100" />
-    <div class="title">
-        <h1><a href="{% url 'choose_team' %}">POLONIA WARSZAWA</a></h1>
+    <div class="nav-left">
+        <img class="team-logo" src="https://kspolonia.pl/wp-content/themes/skela/static/img/new_logo_border.svg" width="100" height="100" />
+        <div class="title">
+            <h1><a href="{% url 'choose_team' %}">POLONIA WARSZAWA</a></h1>
+        </div>
     </div>
+    {% if available_seasons %}
+    <div class="season-selector-container">
+        <label for="season-select"><i class="fa-solid fa-calendar-days"></i> Sezon:</label>
+        <select id="season-select" class="season-select" onchange="switchSeason(this.value)">
+            {% for season in available_seasons %}
+                <option value="{{ season }}" {% if season == current_season %}selected{% endif %}>
+                    {{ season }}{% if forloop.first %} (Aktualny){% else %} (Archiwum){% endif %}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+    {% endif %}
 </nav>
+
+<script>
+function switchSeason(season) {
+    const url = new URL(window.location.href);
+    url.searchParams.set('season', season);
+    window.location.href = url.toString();
+}
+</script>

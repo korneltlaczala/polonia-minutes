@@ -5,10 +5,21 @@ import os
 import json
 from . import util
 
+DEFAULT_SEASON = "2026-2027"
+
 class Club:
     def __init__(self, name, folder):
         self.name = name
-        self.folder = "data/" + folder
+        
+        # Support season subfolders inside data/polonia/seasons/
+        if folder == "polonia":
+            folder = f"polonia/seasons/{DEFAULT_SEASON}"
+        elif folder.startswith("polonia/") and not folder.startswith("polonia/seasons/"):
+            season_name = folder.split("/", 1)[1]
+            folder = f"polonia/seasons/{season_name}"
+
+        self.season_folder = folder
+        self.folder = os.path.normpath(os.path.join("data", folder))
         self.leagues = []
         self.load_teams()
         self.load_leagues()
@@ -17,7 +28,7 @@ class Club:
         self.load_players()
         for league in self.leagues:
             if active_leagues is None or len(active_leagues) == 0 or league.id in active_leagues:
-                print("Prepping stats for league:", league, " | ", league.id)
+                print(f"Prepping stats for league: {league.folder} | {league.id}")
                 league.prep_stats()
 
     def read_teams(self):
@@ -109,14 +120,13 @@ class Club:
             league.repair_matches()
 
     def get_players_for_team(self, team_id, active_leagues=None):
-        self.folder = self.folder[(self.folder.rfind("/") + 1):]
         team_id = int(team_id)
 
         if active_leagues is None or len(active_leagues) == 0:
             tempTeam = self.get_team(team_id)
             active_leagues = [league.id for league in tempTeam.active_leagues]
 
-        tempClub = Club(self.name, self.folder)
+        tempClub = Club(self.name, self.season_folder)
         tempClub.prep_stats(active_leagues=active_leagues)
         team = tempClub.get_team(team_id)
         players = []
@@ -133,26 +143,24 @@ class Club:
 
         played_matches = team.matches[0]
         for match in played_matches:
-            print(f"Match: {match}")
+            # print(f"Match: {match}")
             for player in players:
                 for appearance in player.appearances:
                     if appearance.match != match:
                         continue
-                    if appearance.goal_count > 0:
-                        print(f"\t{player} scored {appearance.goal_count} goals")
+                    # if appearance.goal_count > 0:
+                    #     print(f"\t{player} scored {appearance.goal_count} goals")
                         
         return players
 
     def get_matches_for_team(self, team_id, active_leagues=None):
-        self.folder = self.folder[(self.folder.rfind("/") + 1):]
-        tempClub = Club(self.name, self.folder)
+        tempClub = Club(self.name, self.season_folder)
         tempClub.prep_stats(active_leagues=active_leagues)
         team_id = int(team_id)
         team = tempClub.get_team(team_id)
         return team.matches
 
     def get_appearances_for_player(self, player_id, active_leagues=None):
-        self.folder = self.folder[(self.folder.rfind("/") + 1):]
         player_id = str(player_id)
 
         if active_leagues is None or len(active_leagues) == 0:
@@ -161,7 +169,7 @@ class Club:
                 return []
             active_leagues = [league.id for league in player.leagues]
 
-        tempClub = Club(self.name, self.folder)
+        tempClub = Club(self.name, self.season_folder)
         tempClub.prep_stats(active_leagues=active_leagues)
         player = tempClub.get_player(player_id)
         if player is None:
