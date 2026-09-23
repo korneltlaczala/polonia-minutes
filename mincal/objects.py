@@ -420,10 +420,13 @@ class League:
         for team in self.club.teams:
             if team.category == self.category:
                 return team
+        return None
 
     @property
     def age(self):
-        return self.team.age
+        if self.team:
+            return self.team.age
+        return 100
 
     @property
     def id(self):
