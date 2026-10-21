@@ -1,0 +1,1249 @@
+{
+    "host": {
+        "staff": [
+            {
+                "firstname": "Adrian",
+                "lastname": "Rowicki",
+                "alternativePersonName": "Rowicki Adrian",
+                "function": "Trener",
+                "cards": []
+            },
+            {
+                "firstname": "Łukasz",
+                "lastname": "Sobolewski",
+                "alternativePersonName": "Sobolewski Łukasz",
+                "function": "Asystent Trenera",
+                "cards": []
+            }
+        ],
+        "squad": [
+            {
+                "id": "e0727a51-c337-4b39-a417-0f102c590c0c",
+                "firstname": "Ivan",
+                "lastname": "Hodasevich",
+                "number": 25,
+                "isCaptain": false,
+                "isKeeper": true,
+                "isJunior": false,
+                "type": "Substitute",
+                "goals": [],
+                "cards": [],
+                "substitutions": []
+            },
+            {
+                "id": "74c0e0ce-4461-4d98-8dc5-deb4e72f77a9",
+                "firstname": "Aleksander",
+                "lastname": "Raszkowski",
+                "number": 18,
+                "isCaptain": false,
+                "isKeeper": false,
+                "isJunior": true,
+                "type": "Substitute",
+                "goals": [
+                    {
+                        "type": "Normal",
+                        "minute": "75'"
+                    }
+                ],
+                "cards": [],
+                "substitutions": [
+                    {
+                        "type": "In",
+                        "minute": "62'"
+                    }
+                ]
+            },
+            {
+                "id": "7b4cd2c8-1691-4c26-a713-e580725f015a",
+                "firstname": "Filip",
+                "lastname": "Garczyński",
+                "number": 13,
+                "isCaptain": false,
+                "isKeeper": false,
+                "isJunior": true,
+                "type": "Substitute",
+                "goals": [],
+                "cards": [],
+                "substitutions": [
+                    {
+                        "type": "In",
+                        "minute": "46'"
+                    }
+                ]
+            },
+            {
+                "id": "9fcfba61-5d6c-4261-81dc-61bcbdfec973",
+                "firstname": "Adam",
+                "lastname": "Langiewicz",
+                "number": 7,
+                "isCaptain": false,
+                "isKeeper": false,
+                "isJunior": true,
+                "type": "Starter",
+                "goals": [],
+                "cards": [],
+                "substitutions": []
+            },
+            {
+                "id": "3b9dc8ef-8798-4f82-924f-7a742611dc02",
+                "firstname": "Antoni",
+                "lastname": "Nerek",
+                "number": 11,
+                "isCaptain": false,
+                "isKeeper": false,
+                "isJunior": true,
+                "type": "Starter",
+                "goals": [
+                    {
+                        "type": "Normal",
+                        "minute": "13'"
+                    }
+                ],
+                "cards": [],
+                "substitutions": [
+                    {
+                        "type": "Out",
+                        "minute": "62'"
+                    }
+                ]
+            },
+            {
+                "id": "baaf57c3-4d2d-4f70-aecd-7c563eb6f44a",
+                "firstname": "Karol",
+                "lastname": "Nowak",
+                "number": 9,
+                "isCaptain": false,
+                "isKeeper": false,
+                "isJunior": true,
+                "type": "Starter",
+                "goals": [
+                    {
+                        "type": "Normal",
+                        "minute": "15'"
+                    }
+                ],
+                "cards": [],
+                "substitutions": [
+                    {
+                        "type": "Out",
+                        "minute": "79'"
+                    }
+                ]
+            },
+            {
+                "id": "f8a2944b-a382-40ab-aa3a-bbe038d1cc59",
+                "firstname": "Filip",
+                "lastname": "Pietrzak",
+                "number": 5,
+                "isCaptain": false,
+                "isKeeper": false,
+                "isJunior": true,
+                "type": "Starter",
+                "goals": [],
+                "cards": [],
+                "substitutions": [
+                    {
+                        "type": "Out",
+                        "minute": "46'"
+                    }
+                ]
+            },
+            {
+                "id": "34636bde-7962-48aa-adc2-0b9f606c8566",
+                "firstname": "Jan",
+                "lastname": "Piasek",
+                "number": 16,
+                "isCaptain": false,
+                "isKeeper": false,
+                "isJunior": false,
+                "type": "Substitute",
+                "goals": [],
+                "cards": [],
+                "substitutions": [
+                    {
+                        "type": "In",
+                        "minute": "79'"
+                    }
+                ]
+            },
+            {
+                "id": "f29be20b-4eb5-40d0-b39a-a5ceb5d66a1e",
+                "firstname": "Bartosz",
+                "lastname": "Pawlak",
+                "number": 15,
+                "isCaptain": false,
+                "isKeeper": false,
+                "isJunior": true,
+                "type": "Substitute",
+                "goals": [],
+                "cards": [],
+                "substitutions": [
+                    {
+                        "type": "In",
+                        "minute": "75'"
+                    }
+                ]
+            },
+            {
+                "id": "d84eed31-c102-4340-92f5-26cb55434fc4",
+                "firstname": "Jan",
+                "lastname": "Tyszko",
+                "number": 8,
+                "isCaptain": false,
+                "isKeeper": false,
+                "isJunior": true,
+                "type": "Starter",
+                "goals": [],
+                "cards": [],
+                "substitutions": [
+                    {
+                        "type": "Out",
+                        "minute": "66'"
+                    }
+                ]
+            },
+            {
+                "id": "82a3a336-787c-460e-84ee-19e439d24e60",
+                "firstname": "Filip",
+                "lastname": "Kępski",
+                "number": 1,
+                "isCaptain": false,
+                "isKeeper": true,
+                "isJunior": true,
+                "type": "Starter",
+                "goals": [],
+                "cards": [],
+                "substitutions": []
+            },
+            {
+                "id": "e5fa412e-3552-4f31-bbe3-6e57f4417dae",
+                "firstname": "Joao Vitor",
+                "lastname": "Schon Zolandeck",
+                "number": 10,
+                "isCaptain": false,
+                "isKeeper": false,
+                "isJunior": true,
+                "type": "Starter",
+                "goals": [
+                    {
+                        "type": "Normal",
+                        "minute": "7'"
+                    }
+                ],
+                "cards": [],
+                "substitutions": [
+                    {
+                        "type": "Out",
+                        "minute": "66'"
+                    }
+                ]
+            },
+            {
+                "id": "35ac669b-8c36-40e7-855a-be6ce7459778",
+                "firstname": "Kacper",
+                "lastname": "Kołakowski",
+                "number": 3,
+                "isCaptain": false,
+                "isKeeper": false,
+                "isJunior": true,
+                "type": "Starter",
+                "goals": [],
+                "cards": [
+                    {
+                        "type": "Yellow",
+                        "minute": "58'"
+                    }
+                ],
+                "substitutions": [
+                    {
+                        "type": "Out",
+                        "minute": "79'"
+                    }
+                ]
+            },
+            {
+                "id": "11117140-0df8-438b-a290-a319de05d13e",
+                "firstname": "Emre",
+                "lastname": "Celik",
+                "number": 4,
+                "isCaptain": true,
+                "isKeeper": false,
+                "isJunior": false,
+                "type": "Starter",
+                "goals": [],
+                "cards": [
+                    {
+                        "type": "Yellow",
+                        "minute": "72'"
+                    }
+                ],
+                "substitutions": []
+            },
+            {
+                "id": "06a07125-e848-44e8-af8d-7f11965df9c7",
+                "firstname": "Tomasz",
+                "lastname": "Tutka",
+                "number": 19,
+                "isCaptain": false,
+                "isKeeper": false,
+                "isJunior": true,
+                "type": "Substitute",
+                "goals": [],
+                "cards": [],
+                "substitutions": [
+                    {
+                        "type": "In",
+                        "minute": "66'"
+                    }
+                ]
+            },
+            {
+                "id": "06f767df-8939-417d-b8b1-6c03c3e45e6f",
+                "firstname": "Bartosz",
+                "lastname": "Bąkiewicz",
+                "number": 22,
+                "isCaptain": false,
+                "isKeeper": false,
+                "isJunior": true,
+                "type": "Starter",
+                "goals": [],
+                "cards": [],
+                "substitutions": [
+                    {
+                        "type": "Out",
+                        "minute": "75'"
+                    }
+                ]
+            },
+            {
+                "id": "699b06bd-8cd9-4527-a7ea-ba5e6166d967",
+                "firstname": "Milan",
+                "lastname": "Jawor",
+                "number": 14,
+                "isCaptain": false,
+                "isKeeper": false,
+                "isJunior": true,
+                "type": "Substitute",
+                "goals": [],
+                "cards": [],
+                "substitutions": [
+                    {
+                        "type": "In",
+                        "minute": "79'"
+                    }
+                ]
+            },
+            {
+                "id": "c7416b56-6095-4e73-aff9-01e6013c4683",
+                "firstname": "Sebastian",
+                "lastname": "Piotrowski",
+                "number": 17,
+                "isCaptain": false,
+                "isKeeper": false,
+                "isJunior": true,
+                "type": "Substitute",
+                "goals": [],
+                "cards": [],
+                "substitutions": [
+                    {
+                        "type": "In",
+                        "minute": "66'"
+                    }
+                ]
+            },
+            {
+                "id": "8a9cfdee-8355-4060-a0d0-5eb97b4ed447",
+                "firstname": "Victor",
+                "lastname": "Ciempiel",
+                "number": 6,
+                "isCaptain": false,
+                "isKeeper": false,
+                "isJunior": true,
+                "type": "Starter",
+                "goals": [],
+                "cards": [],
+                "substitutions": []
+            }
+        ]
+    },
+    "guest": {
+        "staff": [
+            {
+                "firstname": "Piotr",
+                "lastname": "Pernal",
+                "alternativePersonName": "Pernal Piotr",
+                "function": "Trener",
+                "cards": [
+                    {
+                        "type": "Red",
+                        "minute": "75'"
+                    }
+                ]
+            },
+            {
+                "firstname": "Karol",
+                "lastname": "Gębski",
+                "alternativePersonName": "Gębski Karol",
+                "function": "Trener Bramkarzy",
+                "cards": []
+            },
+            {
+                "firstname": "Dominik",
+                "lastname": "Nałęcz",
+                "alternativePersonName": "Nałęcz Dominik",
+                "function": "Trener Przygotowania Fizycznego",
+                "cards": []
+            },
+            {
+                "alternativePersonName": "kuza karol",
+                "function": "Asystent Trenera",
+                "cards": []
+            }
+        ],
+        "squad": [
+            {
+                "id": "262095b4-6be7-47e8-8748-ff4ef8028b30",
+                "firstname": "Moatasem",
+                "lastname": "Aziz",
+                "number": 7,
+                "isCaptain": false,
+                "isKeeper": false,
+                "isJunior": false,
+                "type": "Starter",
+                "goals": [],
+                "cards": [],
+                "substitutions": [
+                    {
+                        "type": "Out",
+                        "minute": "79'"
+                    }
+                ]
+            },
+            {
+                "id": "987401f7-9405-4660-9a50-ad4b1d866853",
+                "firstname": "Mkhululi",
+                "lastname": "Ncube",
+                "number": 15,
+                "isCaptain": false,
+                "isKeeper": false,
+                "isJunior": false,
+                "type": "Starter",
+                "goals": [],
+                "cards": [],
+                "substitutions": []
+            },
+            {
+                "id": "4b36669c-b0a9-45e6-8701-8fc1ce18ccc5",
+                "firstname": "Szymon",
+                "lastname": "Mękała",
+                "number": 12,
+                "isCaptain": false,
+                "isKeeper": true,
+                "isJunior": false,
+                "type": "Substitute",
+                "goals": [],
+                "cards": [],
+                "substitutions": []
+            },
+            {
+                "id": "ad02fbde-e0d1-4d17-abe0-02d678a602b1",
+                "firstname": "Tomasz",
+                "lastname": "Sroczyński",
+                "number": 13,
+                "isCaptain": false,
+                "isKeeper": false,
+                "isJunior": false,
+                "type": "Substitute",
+                "goals": [],
+                "cards": [],
+                "substitutions": [
+                    {
+                        "type": "In",
+                        "minute": "79'"
+                    }
+                ]
+            },
+            {
+                "id": "d1d01f34-7cfc-476b-b22b-09ab6361e220",
+                "firstname": "Krzysztof",
+                "lastname": "Bujak",
+                "number": 1,
+                "isCaptain": false,
+                "isKeeper": true,
+                "isJunior": false,
+                "type": "Starter",
+                "goals": [],
+                "cards": [],
+                "substitutions": []
+            },
+            {
+                "id": "0c5cc30f-8c18-4d08-9a57-b936dae5fd21",
+                "firstname": "Adam",
+                "lastname": "Szklanko",
+                "number": 22,
+                "isCaptain": false,
+                "isKeeper": false,
+                "isJunior": false,
+                "type": "Substitute",
+                "goals": [],
+                "cards": [],
+                "substitutions": [
+                    {
+                        "type": "In",
+                        "minute": "57'"
+                    }
+                ]
+            },
+            {
+                "id": "8be75f4b-0ab4-4db1-84dd-8ec8d956e5ee",
+                "firstname": "Fabian",
+                "lastname": "Kaleta",
+                "number": 14,
+                "isCaptain": false,
+                "isKeeper": false,
+                "isJunior": true,
+                "type": "Starter",
+                "goals": [],
+                "cards": [
+                    {
+                        "type": "Yellow",
+                        "minute": "64'"
+                    }
+                ],
+                "substitutions": []
+            },
+            {
+                "id": "15460472-9f20-4e84-b4af-1008d2cd7076",
+                "firstname": "Tymon",
+                "lastname": "Sieradzki",
+                "number": 11,
+                "isCaptain": false,
+                "isKeeper": false,
+                "isJunior": true,
+                "type": "Substitute",
+                "goals": [],
+                "cards": [],
+                "substitutions": []
+            },
+            {
+                "id": "569237c9-8e38-4506-9d9b-e471c6a7bd9c",
+                "firstname": "Mateusz",
+                "lastname": "Łuczyk",
+                "number": 6,
+                "isCaptain": true,
+                "isKeeper": false,
+                "isJunior": false,
+                "type": "Starter",
+                "goals": [],
+                "cards": [],
+                "substitutions": [
+                    {
+                        "type": "Out",
+                        "minute": "88'"
+                    }
+                ]
+            },
+            {
+                "id": "4587a0c4-37e0-4abe-8dd7-29ac9c3f5809",
+                "firstname": "Mikołaj",
+                "lastname": "Rałowiec",
+                "number": 9,
+                "isCaptain": false,
+                "isKeeper": false,
+                "isJunior": false,
+                "type": "Starter",
+                "goals": [],
+                "cards": [
+                    {
+                        "type": "Yellow",
+                        "minute": "66'"
+                    }
+                ],
+                "substitutions": []
+            },
+            {
+                "id": "4a94188a-4961-46d7-8429-1f41cb367ade",
+                "firstname": "Mateusz",
+                "lastname": "Łuczak",
+                "number": 10,
+                "isCaptain": false,
+                "isKeeper": false,
+                "isJunior": false,
+                "type": "Starter",
+                "goals": [
+                    {
+                        "type": "Normal",
+                        "minute": "44'"
+                    },
+                    {
+                        "type": "Normal",
+                        "minute": "76'"
+                    }
+                ],
+                "cards": [
+                    {
+                        "type": "Yellow",
+                        "minute": "83'"
+                    }
+                ],
+                "substitutions": []
+            },
+            {
+                "id": "50f0fa7d-f7b6-4235-afb8-1b5dc08ace61",
+                "firstname": "Michał",
+                "lastname": "Dziubek",
+                "number": 8,
+                "isCaptain": false,
+                "isKeeper": false,
+                "isJunior": false,
+                "type": "Starter",
+                "goals": [],
+                "cards": [],
+                "substitutions": [
+                    {
+                        "type": "Out",
+                        "minute": "57'"
+                    }
+                ]
+            },
+            {
+                "id": "d84f24f8-b8f3-4a6c-a49d-7a8a101ce87f",
+                "firstname": "Maksym",
+                "lastname": "Leski",
+                "number": 3,
+                "isCaptain": false,
+                "isKeeper": false,
+                "isJunior": true,
+                "type": "Substitute",
+                "goals": [],
+                "cards": [],
+                "substitutions": []
+            },
+            {
+                "id": "a2a794cc-3e46-4f29-baa2-467180d06a69",
+                "firstname": "Piotr",
+                "lastname": "Żuk",
+                "number": 21,
+                "isCaptain": false,
+                "isKeeper": false,
+                "isJunior": false,
+                "type": "Substitute",
+                "goals": [],
+                "cards": [],
+                "substitutions": [
+                    {
+                        "type": "In",
+                        "minute": "57'"
+                    }
+                ]
+            },
+            {
+                "id": "6a1bb912-6331-4b0c-99d2-ab68069f87f1",
+                "firstname": "Bartosz",
+                "lastname": "Szoja",
+                "number": 4,
+                "isCaptain": false,
+                "isKeeper": false,
+                "isJunior": false,
+                "type": "Starter",
+                "goals": [],
+                "cards": [],
+                "substitutions": []
+            },
+            {
+                "id": "1724d47f-bb90-4871-8351-0999e6f97748",
+                "firstname": "Krzysztof",
+                "lastname": "Capar",
+                "number": 17,
+                "isCaptain": false,
+                "isKeeper": false,
+                "isJunior": false,
+                "type": "Substitute",
+                "goals": [],
+                "cards": [],
+                "substitutions": [
+                    {
+                        "type": "In",
+                        "minute": "67'"
+                    }
+                ]
+            },
+            {
+                "id": "62b8f488-d528-4cb2-85c4-ab15dab1f54a",
+                "firstname": "Paweł",
+                "lastname": "Olędzki",
+                "number": 5,
+                "isCaptain": false,
+                "isKeeper": false,
+                "isJunior": true,
+                "type": "Substitute",
+                "goals": [],
+                "cards": [],
+                "substitutions": [
+                    {
+                        "type": "In",
+                        "minute": "88'"
+                    }
+                ]
+            },
+            {
+                "id": "b72cc269-f534-4a98-9193-a7cd1d476446",
+                "firstname": "Konstantyn",
+                "lastname": "Ślęzak",
+                "number": 99,
+                "isCaptain": false,
+                "isKeeper": false,
+                "isJunior": false,
+                "type": "Starter",
+                "goals": [],
+                "cards": [
+                    {
+                        "type": "Yellow",
+                        "minute": "58'"
+                    }
+                ],
+                "substitutions": [
+                    {
+                        "type": "Out",
+                        "minute": "67'"
+                    }
+                ]
+            },
+            {
+                "id": "75b44f4b-d9c5-467e-9406-b24a02383bf8",
+                "firstname": "Szymon",
+                "lastname": "Ścięgosz",
+                "number": 20,
+                "isCaptain": false,
+                "isKeeper": false,
+                "isJunior": true,
+                "type": "Starter",
+                "goals": [],
+                "cards": [],
+                "substitutions": [
+                    {
+                        "type": "Out",
+                        "minute": "57'"
+                    }
+                ]
+            }
+        ]
+    },
+    "events": [
+        {
+            "header": "II Połowa",
+            "beginTime": 45,
+            "endTime": 90,
+            "events": [
+                {
+                    "player": {
+                        "id": "569237c9-8e38-4506-9d9b-e471c6a7bd9c",
+                        "firstname": "Mateusz",
+                        "lastname": "Łuczyk"
+                    },
+                    "type": "Substitution",
+                    "subType": "Out",
+                    "timeType": "During",
+                    "time": 88,
+                    "minute": "88'",
+                    "isHost": false
+                },
+                {
+                    "player": {
+                        "id": "62b8f488-d528-4cb2-85c4-ab15dab1f54a",
+                        "firstname": "Paweł",
+                        "lastname": "Olędzki"
+                    },
+                    "type": "Substitution",
+                    "subType": "In",
+                    "timeType": "During",
+                    "time": 88,
+                    "minute": "88'",
+                    "isHost": false
+                },
+                {
+                    "player": {
+                        "id": "4a94188a-4961-46d7-8429-1f41cb367ade",
+                        "firstname": "Mateusz",
+                        "lastname": "Łuczak"
+                    },
+                    "type": "Card",
+                    "subType": "Yellow",
+                    "timeType": "During",
+                    "time": 83,
+                    "minute": "83'",
+                    "isHost": false
+                },
+                {
+                    "player": {
+                        "id": "baaf57c3-4d2d-4f70-aecd-7c563eb6f44a",
+                        "firstname": "Karol",
+                        "lastname": "Nowak"
+                    },
+                    "type": "Substitution",
+                    "subType": "Out",
+                    "timeType": "During",
+                    "time": 79,
+                    "minute": "79'",
+                    "isHost": true
+                },
+                {
+                    "player": {
+                        "id": "34636bde-7962-48aa-adc2-0b9f606c8566",
+                        "firstname": "Jan",
+                        "lastname": "Piasek"
+                    },
+                    "type": "Substitution",
+                    "subType": "In",
+                    "timeType": "During",
+                    "time": 79,
+                    "minute": "79'",
+                    "isHost": true
+                },
+                {
+                    "player": {
+                        "id": "35ac669b-8c36-40e7-855a-be6ce7459778",
+                        "firstname": "Kacper",
+                        "lastname": "Kołakowski"
+                    },
+                    "type": "Substitution",
+                    "subType": "Out",
+                    "timeType": "During",
+                    "time": 79,
+                    "minute": "79'",
+                    "isHost": true
+                },
+                {
+                    "player": {
+                        "id": "699b06bd-8cd9-4527-a7ea-ba5e6166d967",
+                        "firstname": "Milan",
+                        "lastname": "Jawor"
+                    },
+                    "type": "Substitution",
+                    "subType": "In",
+                    "timeType": "During",
+                    "time": 79,
+                    "minute": "79'",
+                    "isHost": true
+                },
+                {
+                    "player": {
+                        "id": "262095b4-6be7-47e8-8748-ff4ef8028b30",
+                        "firstname": "Moatasem",
+                        "lastname": "Aziz"
+                    },
+                    "type": "Substitution",
+                    "subType": "Out",
+                    "timeType": "During",
+                    "time": 79,
+                    "minute": "79'",
+                    "isHost": false
+                },
+                {
+                    "player": {
+                        "id": "ad02fbde-e0d1-4d17-abe0-02d678a602b1",
+                        "firstname": "Tomasz",
+                        "lastname": "Sroczyński"
+                    },
+                    "type": "Substitution",
+                    "subType": "In",
+                    "timeType": "During",
+                    "time": 79,
+                    "minute": "79'",
+                    "isHost": false
+                },
+                {
+                    "player": {
+                        "id": "4a94188a-4961-46d7-8429-1f41cb367ade",
+                        "firstname": "Mateusz",
+                        "lastname": "Łuczak"
+                    },
+                    "type": "Goal",
+                    "subType": "Normal",
+                    "timeType": "During",
+                    "time": 76,
+                    "minute": "76'",
+                    "isHost": false
+                },
+                {
+                    "player": {
+                        "id": "f29be20b-4eb5-40d0-b39a-a5ceb5d66a1e",
+                        "firstname": "Bartosz",
+                        "lastname": "Pawlak"
+                    },
+                    "type": "Substitution",
+                    "subType": "In",
+                    "timeType": "During",
+                    "time": 75,
+                    "minute": "75'",
+                    "isHost": true
+                },
+                {
+                    "player": {
+                        "id": "06f767df-8939-417d-b8b1-6c03c3e45e6f",
+                        "firstname": "Bartosz",
+                        "lastname": "Bąkiewicz"
+                    },
+                    "type": "Substitution",
+                    "subType": "Out",
+                    "timeType": "During",
+                    "time": 75,
+                    "minute": "75'",
+                    "isHost": true
+                },
+                {
+                    "player": {
+                        "id": "f4deff98-2223-428b-89bf-31ab21412994",
+                        "firstname": "Piotr",
+                        "lastname": "Pernal"
+                    },
+                    "type": "Card",
+                    "subType": "Red",
+                    "timeType": "During",
+                    "time": 75,
+                    "minute": "75'",
+                    "isHost": false
+                },
+                {
+                    "player": {
+                        "id": "74c0e0ce-4461-4d98-8dc5-deb4e72f77a9",
+                        "firstname": "Aleksander",
+                        "lastname": "Raszkowski"
+                    },
+                    "type": "Goal",
+                    "subType": "Normal",
+                    "timeType": "During",
+                    "time": 75,
+                    "minute": "75'",
+                    "isHost": true
+                },
+                {
+                    "player": {
+                        "id": "11117140-0df8-438b-a290-a319de05d13e",
+                        "firstname": "Emre",
+                        "lastname": "Celik"
+                    },
+                    "type": "Card",
+                    "subType": "Yellow",
+                    "timeType": "During",
+                    "time": 72,
+                    "minute": "72'",
+                    "isHost": true
+                },
+                {
+                    "player": {
+                        "id": "1724d47f-bb90-4871-8351-0999e6f97748",
+                        "firstname": "Krzysztof",
+                        "lastname": "Capar"
+                    },
+                    "type": "Substitution",
+                    "subType": "In",
+                    "timeType": "During",
+                    "time": 67,
+                    "minute": "67'",
+                    "isHost": false
+                },
+                {
+                    "player": {
+                        "id": "b72cc269-f534-4a98-9193-a7cd1d476446",
+                        "firstname": "Konstantyn",
+                        "lastname": "Ślęzak"
+                    },
+                    "type": "Substitution",
+                    "subType": "Out",
+                    "timeType": "During",
+                    "time": 67,
+                    "minute": "67'",
+                    "isHost": false
+                },
+                {
+                    "player": {
+                        "id": "d84eed31-c102-4340-92f5-26cb55434fc4",
+                        "firstname": "Jan",
+                        "lastname": "Tyszko"
+                    },
+                    "type": "Substitution",
+                    "subType": "Out",
+                    "timeType": "During",
+                    "time": 66,
+                    "minute": "66'",
+                    "isHost": true
+                },
+                {
+                    "player": {
+                        "id": "e5fa412e-3552-4f31-bbe3-6e57f4417dae",
+                        "firstname": "Joao Vitor",
+                        "lastname": "Schon Zolandeck"
+                    },
+                    "type": "Substitution",
+                    "subType": "Out",
+                    "timeType": "During",
+                    "time": 66,
+                    "minute": "66'",
+                    "isHost": true
+                },
+                {
+                    "player": {
+                        "id": "06a07125-e848-44e8-af8d-7f11965df9c7",
+                        "firstname": "Tomasz",
+                        "lastname": "Tutka"
+                    },
+                    "type": "Substitution",
+                    "subType": "In",
+                    "timeType": "During",
+                    "time": 66,
+                    "minute": "66'",
+                    "isHost": true
+                },
+                {
+                    "player": {
+                        "id": "c7416b56-6095-4e73-aff9-01e6013c4683",
+                        "firstname": "Sebastian",
+                        "lastname": "Piotrowski"
+                    },
+                    "type": "Substitution",
+                    "subType": "In",
+                    "timeType": "During",
+                    "time": 66,
+                    "minute": "66'",
+                    "isHost": true
+                },
+                {
+                    "player": {
+                        "id": "4587a0c4-37e0-4abe-8dd7-29ac9c3f5809",
+                        "firstname": "Mikołaj",
+                        "lastname": "Rałowiec"
+                    },
+                    "type": "Card",
+                    "subType": "Yellow",
+                    "timeType": "During",
+                    "time": 66,
+                    "minute": "66'",
+                    "isHost": false
+                },
+                {
+                    "player": {
+                        "id": "8be75f4b-0ab4-4db1-84dd-8ec8d956e5ee",
+                        "firstname": "Fabian",
+                        "lastname": "Kaleta"
+                    },
+                    "type": "Card",
+                    "subType": "Yellow",
+                    "timeType": "During",
+                    "time": 64,
+                    "minute": "64'",
+                    "isHost": false
+                },
+                {
+                    "player": {
+                        "id": "74c0e0ce-4461-4d98-8dc5-deb4e72f77a9",
+                        "firstname": "Aleksander",
+                        "lastname": "Raszkowski"
+                    },
+                    "type": "Substitution",
+                    "subType": "In",
+                    "timeType": "During",
+                    "time": 62,
+                    "minute": "62'",
+                    "isHost": true
+                },
+                {
+                    "player": {
+                        "id": "3b9dc8ef-8798-4f82-924f-7a742611dc02",
+                        "firstname": "Antoni",
+                        "lastname": "Nerek"
+                    },
+                    "type": "Substitution",
+                    "subType": "Out",
+                    "timeType": "During",
+                    "time": 62,
+                    "minute": "62'",
+                    "isHost": true
+                },
+                {
+                    "player": {
+                        "id": "35ac669b-8c36-40e7-855a-be6ce7459778",
+                        "firstname": "Kacper",
+                        "lastname": "Kołakowski"
+                    },
+                    "type": "Card",
+                    "subType": "Yellow",
+                    "timeType": "During",
+                    "time": 58,
+                    "minute": "58'",
+                    "isHost": true
+                },
+                {
+                    "player": {
+                        "id": "b72cc269-f534-4a98-9193-a7cd1d476446",
+                        "firstname": "Konstantyn",
+                        "lastname": "Ślęzak"
+                    },
+                    "type": "Card",
+                    "subType": "Yellow",
+                    "timeType": "During",
+                    "time": 58,
+                    "minute": "58'",
+                    "isHost": false
+                },
+                {
+                    "player": {
+                        "id": "0c5cc30f-8c18-4d08-9a57-b936dae5fd21",
+                        "firstname": "Adam",
+                        "lastname": "Szklanko"
+                    },
+                    "type": "Substitution",
+                    "subType": "In",
+                    "timeType": "During",
+                    "time": 57,
+                    "minute": "57'",
+                    "isHost": false
+                },
+                {
+                    "player": {
+                        "id": "50f0fa7d-f7b6-4235-afb8-1b5dc08ace61",
+                        "firstname": "Michał",
+                        "lastname": "Dziubek"
+                    },
+                    "type": "Substitution",
+                    "subType": "Out",
+                    "timeType": "During",
+                    "time": 57,
+                    "minute": "57'",
+                    "isHost": false
+                },
+                {
+                    "player": {
+                        "id": "a2a794cc-3e46-4f29-baa2-467180d06a69",
+                        "firstname": "Piotr",
+                        "lastname": "Żuk"
+                    },
+                    "type": "Substitution",
+                    "subType": "In",
+                    "timeType": "During",
+                    "time": 57,
+                    "minute": "57'",
+                    "isHost": false
+                },
+                {
+                    "player": {
+                        "id": "75b44f4b-d9c5-467e-9406-b24a02383bf8",
+                        "firstname": "Szymon",
+                        "lastname": "Ścięgosz"
+                    },
+                    "type": "Substitution",
+                    "subType": "Out",
+                    "timeType": "During",
+                    "time": 57,
+                    "minute": "57'",
+                    "isHost": false
+                },
+                {
+                    "player": {
+                        "id": "7b4cd2c8-1691-4c26-a713-e580725f015a",
+                        "firstname": "Filip",
+                        "lastname": "Garczyński"
+                    },
+                    "type": "Substitution",
+                    "subType": "In",
+                    "timeType": "During",
+                    "time": 46,
+                    "minute": "46'",
+                    "isHost": true
+                },
+                {
+                    "player": {
+                        "id": "f8a2944b-a382-40ab-aa3a-bbe038d1cc59",
+                        "firstname": "Filip",
+                        "lastname": "Pietrzak"
+                    },
+                    "type": "Substitution",
+                    "subType": "Out",
+                    "timeType": "During",
+                    "time": 46,
+                    "minute": "46'",
+                    "isHost": true
+                }
+            ]
+        },
+        {
+            "header": "I Połowa",
+            "beginTime": 0,
+            "endTime": 45,
+            "events": [
+                {
+                    "player": {
+                        "id": "4a94188a-4961-46d7-8429-1f41cb367ade",
+                        "firstname": "Mateusz",
+                        "lastname": "Łuczak"
+                    },
+                    "type": "Goal",
+                    "subType": "Normal",
+                    "timeType": "During",
+                    "time": 44,
+                    "minute": "44'",
+                    "isHost": false
+                },
+                {
+                    "player": {
+                        "id": "baaf57c3-4d2d-4f70-aecd-7c563eb6f44a",
+                        "firstname": "Karol",
+                        "lastname": "Nowak"
+                    },
+                    "type": "Goal",
+                    "subType": "Normal",
+                    "timeType": "During",
+                    "time": 15,
+                    "minute": "15'",
+                    "isHost": true
+                },
+                {
+                    "player": {
+                        "id": "3b9dc8ef-8798-4f82-924f-7a742611dc02",
+                        "firstname": "Antoni",
+                        "lastname": "Nerek"
+                    },
+                    "type": "Goal",
+                    "subType": "Normal",
+                    "timeType": "During",
+                    "time": 13,
+                    "minute": "13'",
+                    "isHost": true
+                },
+                {
+                    "player": {
+                        "id": "e5fa412e-3552-4f31-bbe3-6e57f4417dae",
+                        "firstname": "Joao Vitor",
+                        "lastname": "Schon Zolandeck"
+                    },
+                    "type": "Goal",
+                    "subType": "Normal",
+                    "timeType": "During",
+                    "time": 7,
+                    "minute": "7'",
+                    "isHost": true
+                }
+            ]
+        }
+    ],
+    "referees": [
+        {
+            "id": "86ac74ce-3233-4796-90be-0ab090859316",
+            "firstname": "Dawid",
+            "lastname": "Zieliński",
+            "function": "SĘDZIA GŁÓWNY"
+        },
+        {
+            "id": "90b95430-6ce2-420d-8c49-d9b80cc3c3af",
+            "firstname": "Krzysztof",
+            "lastname": "Sawicki",
+            "function": "SĘDZIA ASYSTENT 1"
+        },
+        {
+            "id": "b6462883-cf6c-45b9-b349-301083c17848",
+            "firstname": "Anton",
+            "lastname": "Ihnatsiuk",
+            "function": "SĘDZIA ASYSTENT 2"
+        }
+    ]
+}
